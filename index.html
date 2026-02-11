@@ -651,10 +651,69 @@
             position: static;
             margin-top: 1rem;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .example-grid {
             grid-template-columns: 1fr;
+        }
+
+        .validation-box {
+            padding: 1rem;
+        }
+
+        .validation-question textarea {
+            min-height: 60px;
+            font-size: 0.95rem;
+        }
+
+        .source-chip {
+            font-size: 0.8rem;
+            padding: 0.5rem 0.9rem;
+        }
+
+        .pp-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .controls {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .controls button {
+            width: 100%;
+        }
+
+        .progress-fill div {
+            display: none; /* Hide percentage text on mobile */
+        }
+    }
+
+    /* Keyboard shortcut hint */
+    .keyboard-hint {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(107, 68, 35, 0.9);
+        color: var(--light-cream);
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        z-index: 99;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        animation: fadeIn 0.3s ease-out;
+        display: none;
+    }
+
+    .keyboard-hint.show {
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .keyboard-hint {
+            display: none !important;
         }
     }
 </style>
@@ -664,7 +723,11 @@
 <body>
 
 <div class="progress-bar">
-    <div id="progress-fill" class="progress-fill" style="width: 25%"></div>
+    <div id="progress-fill" class="progress-fill" style="width: 25%">
+        <div style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 0.7rem; color: white; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3);">
+            <span id="progress-percent">25%</span>
+        </div>
+    </div>
 </div>
 
 <header>
@@ -684,13 +747,35 @@
 <div class="container">
 
 ```
+<div class="keyboard-hint" id="keyboard-hint">
+    💡 Tip: Press <kbd style="background: var(--gold); color: var(--dark-brown); padding: 2px 6px; border-radius: 3px; font-weight: 600;">Ctrl+S</kbd> to save progress
+</div>
+
 <div id="phase-1" class="card">
-    <h2>Phase 1: Identify Your Landmark</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="margin: 0; border: none; padding: 0;">Phase 1: Identify Your Landmark</h2>
+        <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
+            Step 1 of 4 • ~15 minutes
+        </div>
+    </div>
     <p style="margin-bottom: 1.5rem;">A <strong>landmark</strong> is "an event, discovery, or change marking an important stage or turning point." Your job is to identify a post-2006 moment that represents a genuine shift—not just something that happened, but something that <em>changed</em> how we think, act, or organize ourselves.</p>
 
     <div class="research-warning">
         <strong>This Tool Requires Independent Thinking</strong>
-        You must identify your own event. This tool will help you refine and develop your idea, but you need to arrive with a specific moment in mind. If you're stuck, use the brainstorming prompts below.
+        You must identify your own event. This tool will help you refine and develop your idea, but you need to arrive with a specific moment in mind. If you're stuck, use the brainstorming prompts and research links below.
+    </div>
+
+    <div style="background: white; border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
+        <div class="label-neon" style="margin-bottom: 0.75rem;">🔍 Research Starting Points</div>
+        <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-dark);">Use these databases to explore events, verify dates, and check source availability before committing to your choice.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <a href="https://www.nytimes.com/" target="_blank" rel="noopener noreferrer" class="source-chip">The New York Times</a>
+            <a href="https://www.wsj.com/" target="_blank" rel="noopener noreferrer" class="source-chip">The Wall Street Journal</a>
+            <a href="https://www.theatlantic.com/" target="_blank" rel="noopener noreferrer" class="source-chip">The Atlantic</a>
+            <a href="https://www.jstor.org/" target="_blank" rel="noopener noreferrer" class="source-chip">JSTOR</a>
+            <a href="https://school.eb.com/" target="_blank" rel="noopener noreferrer" class="source-chip">Britannica School</a>
+            <a href="https://research.ebsco.com/c/z7bwvs" target="_blank" rel="noopener noreferrer" class="source-chip">Explora</a>
+        </div>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
@@ -750,6 +835,25 @@
         <label for="event-name" class="label-neon">2. Name Your Event</label>
         <p style="font-size: 0.9rem; margin-top: 5px; margin-bottom: 8px; color: var(--text-light);">Be specific. Not "Ukraine war" but "Russia invades Ukraine." Not "police shooting" but "Death of George Floyd."</p>
         <input type="text" id="event-name" placeholder="e.g., Supreme Court overturns Roe v. Wade in Dobbs decision" aria-required="true">
+        
+        <details style="margin-top: 0.75rem;">
+            <summary style="cursor: pointer; color: var(--primary-brown); font-size: 0.9rem; font-weight: 600;">Show examples of specific event names</summary>
+            <div style="margin-top: 0.75rem; padding: 0.75rem; background: var(--light-cream); border-radius: 4px; font-size: 0.85rem;">
+                <p style="margin: 0 0 0.5rem 0; font-weight: 600;">✓ GOOD (Specific):</p>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li>"WHO declares COVID-19 a pandemic" (not "COVID-19 pandemic")</li>
+                    <li>"Harvey Weinstein convicted of rape" (not "#MeToo movement")</li>
+                    <li>"Russia invades Ukraine" (not "Ukraine war")</li>
+                    <li>"Supreme Court legalizes same-sex marriage in Obergefell decision" (not "Marriage equality achieved")</li>
+                </ul>
+                <p style="margin: 1rem 0 0.5rem 0; font-weight: 600;">✗ TOO BROAD (Avoid):</p>
+                <ul style="margin: 0.5rem 0 0 1.5rem;">
+                    <li>"Syrian Civil War" → Instead: "Chemical weapons attack in Ghouta"</li>
+                    <li>"Black Lives Matter" → Instead: "Death of George Floyd"</li>
+                    <li>"Climate change activism" → Instead: "Paris Climate Agreement adopted"</li>
+                </ul>
+            </div>
+        </details>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
@@ -815,13 +919,52 @@
         </div>
     </details>
 
+    <details class="research-tip" style="background: #FFF3E0; border-color: #F57F17;">
+        <summary style="color: #E65100;">⚠️ Common Pitfalls to Avoid</summary>
+        <div class="tip-content">
+            <p><strong>Students often struggle with these issues:</strong></p>
+            <ul>
+                <li><strong>Too recent:</strong> Events from the last 6 months lack scholarly analysis. Choose events at least 1 year old.</li>
+                <li><strong>Too personal/local:</strong> Your town's new ordinance likely lacks national significance unless it sparked broader debate.</li>
+                <li><strong>Generic wording:</strong> "The protests" or "the controversy" won't help you or your instructor identify your event. Use proper names.</li>
+                <li><strong>Confusing cause with effect:</strong> "#MeToo movement" is the effect; "Harvey Weinstein allegations go public" is the event that sparked it.</li>
+                <li><strong>Not actually post-2006:</strong> Double-check your dates. The assignment requires 2007 or later.</li>
+            </ul>
+        </div>
+    </details>
+
+    <div style="background: var(--light-cream); border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 2rem 0 1.5rem 0;">
+        <div style="font-weight: 700; color: var(--primary-brown); margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">→ What's Next?</div>
+        <p style="margin: 0; font-size: 0.9rem; color: var(--text-dark);">
+            Once your event is validated, <strong>Phase 2</strong> will help you select a research angle (Human, Reaction, or Legacy) and formulate a specific research question. Then <strong>Phase 3</strong> guides you through building a five-part significance paragraph with real-time feedback.
+        </p>
+    </div>
+
+    <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 1.25rem; border-radius: 4px; margin: 2rem 0 1.5rem 0;">
+        <div style="font-weight: 700; color: #2E7D32; margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">✓ Ready to Continue? Check:</div>
+        <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.9rem; color: #757575; list-style: none;">
+            <li id="check-topic">○ Umbrella topic selected</li>
+            <li id="check-event">○ Event name is specific (includes key details)</li>
+            <li id="check-date">○ Date provided (month & year, post-2006)</li>
+            <li id="check-validation">○ All three validation questions answered (100+ and 75+ characters)</li>
+            <li id="check-sources">○ Found at least 3 academic sources</li>
+            <li id="check-source-example">○ Listed one source title</li>
+        </ul>
+    </div>
+
     <div class="controls">
-        <button onclick="validateAndProceed()">Validate & Continue</button>
+        <button id="validate-btn" onclick="validateAndProceed()">Validate & Continue</button>
+        <div id="validation-hint" style="text-align: center; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-light);"></div>
     </div>
 </div>
 
 <div id="phase-2" class="card hidden">
-    <h2>Phase 2: Find Your Angle</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="margin: 0; border: none; padding: 0;">Phase 2: Find Your Angle</h2>
+        <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
+            Step 2 of 4 • ~10 minutes
+        </div>
+    </div>
     <p style="margin-bottom: 2rem;">Now that you've identified a turning point, select <em>which aspect</em> of this turning point you want to investigate. You can't research everything—choose your lens.</p>
 
     <div class="event-display">
@@ -855,6 +998,16 @@
             <option value="Reaction">The Reaction Aspect (How did media frame it? What did governments/institutions do? How did public opinion shift?)</option>
             <option value="Legacy">The Legacy Aspect (What laws or policies changed? What movements emerged? What precedents remain?)</option>
         </select>
+        
+        <div style="background: var(--light-cream); border: 1px solid var(--border-color); padding: 1rem; border-radius: 4px; margin-top: 1rem; font-size: 0.85rem;">
+            <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--primary-brown);">💡 How to Choose:</p>
+            <ul style="margin: 0; padding-left: 1.5rem;">
+                <li><strong>Human</strong> = Focus on individuals, motivations, biographies, decision-making</li>
+                <li><strong>Reaction</strong> = Focus on media coverage, public response, institutional statements, policy debates</li>
+                <li><strong>Legacy</strong> = Focus on long-term changes, precedents set, ongoing consequences, current relevance</li>
+            </ul>
+            <p style="margin: 0.75rem 0 0 0; font-style: italic; color: var(--text-light);">All three are valid! Choose based on what sources you've found and what interests you most.</p>
+        </div>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
@@ -882,6 +1035,13 @@
         </div>
     </details>
 
+    <div style="background: var(--light-cream); border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 2rem 0 1.5rem 0;">
+        <div style="font-weight: 700; color: var(--primary-brown); margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">→ What's Next?</div>
+        <p style="margin: 0; font-size: 0.9rem; color: var(--text-dark);">
+            <strong>Phase 3</strong> provides five scaffolded text boxes to build your significance paragraph, with real-time feedback on specificity. You'll need concrete facts, dates, and proper nouns from your research. Budget 30 minutes for this phase.
+        </p>
+    </div>
+
     <div class="controls">
         <button class="secondary" onclick="backToPhase1()">Back</button>
         <button onclick="goToPhase3()">Next: The Deep Dive</button>
@@ -889,8 +1049,26 @@
 </div>
 
 <div id="phase-3" class="card hidden">
-    <h2>Phase 3: The Deep Dive</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="margin: 0; border: none; padding: 0;">Phase 3: The Deep Dive</h2>
+        <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
+            Step 3 of 4 • ~30 minutes
+        </div>
+    </div>
     <p>Use your preliminary research to construct the <strong>Significance Paragraph</strong> required for your proposal. Each box builds one part of your argument. Use specific nouns, dates, and factual claims.</p>
+
+    <div style="background: white; border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 1.5rem 0;">
+        <div class="label-neon" style="margin-bottom: 0.75rem;">📚 Find Your Sources Here</div>
+        <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-dark);">Use these databases to locate credible sources. You'll need specific facts, dates, and quotations for your paragraph.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+            <a href="https://www.jstor.org/" target="_blank" rel="noopener noreferrer" class="source-chip">JSTOR</a>
+            <a href="https://school.eb.com/" target="_blank" rel="noopener noreferrer" class="source-chip">Britannica School</a>
+            <a href="https://research.ebsco.com/c/z7bwvs" target="_blank" rel="noopener noreferrer" class="source-chip">Explora</a>
+            <a href="https://www.nytimes.com/" target="_blank" rel="noopener noreferrer" class="source-chip">NYT Archives</a>
+            <a href="https://www.wsj.com/" target="_blank" rel="noopener noreferrer" class="source-chip">WSJ</a>
+            <a href="https://www.theatlantic.com/" target="_blank" rel="noopener noreferrer" class="source-chip">The Atlantic</a>
+        </div>
+    </div>
 
     <div class="research-warning">
         <strong>Show Academic Integrity!</strong>
@@ -986,7 +1164,12 @@
 </div>
 
 <div id="phase-4" class="card hidden">
-    <h2>Mission Complete</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="margin: 0; border: none; padding: 0;">Phase 4: Mission Complete</h2>
+        <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
+            Step 4 of 4 • Review & Submit
+        </div>
+    </div>
     <p style="margin-bottom: 2rem;">Your structured proposal is ready. Review it carefully, then print or save as a PDF.</p>
     
     <div id="passport-view">
@@ -1110,7 +1293,59 @@
             counter.className = 'char-counter';
         }
         
+        updateChecklist();
         saveProgress();
+    }
+
+    function updateChecklist() {
+        if (!document.getElementById('check-topic')) return;
+
+        const topic = document.getElementById('umbrella-topic')?.value;
+        const eventName = document.getElementById('event-name')?.value.trim();
+        const eventDate = document.getElementById('event-date')?.value.trim();
+        const change = document.getElementById('validation-change')?.value.trim();
+        const affected = document.getElementById('validation-affected')?.value.trim();
+        const legacy = document.getElementById('validation-legacy')?.value.trim();
+        const sourceCount = parseInt(document.getElementById('source-count')?.value) || 0;
+        const sourceExample = document.getElementById('source-example')?.value.trim();
+
+        const checks = {
+            'check-topic': topic,
+            'check-event': eventName && eventName.length >= 10,
+            'check-date': eventDate && eventDate.length >= 4,
+            'check-validation': change.length >= 100 && affected.length >= 75 && legacy.length >= 75,
+            'check-sources': sourceCount >= 3,
+            'check-source-example': sourceExample && sourceExample.length >= 15
+        };
+
+        let allComplete = true;
+        for (const [id, complete] of Object.entries(checks)) {
+            const element = document.getElementById(id);
+            if (element) {
+                const originalText = element.textContent.replace('✓ ', '').replace('○ ', '');
+                if (complete) {
+                    element.style.color = '#2E7D32';
+                    element.style.fontWeight = '600';
+                    element.textContent = '✓ ' + originalText;
+                } else {
+                    element.style.color = '#757575';
+                    element.style.fontWeight = '400';
+                    element.textContent = '○ ' + originalText;
+                    allComplete = false;
+                }
+            }
+        }
+
+        const btn = document.getElementById('validate-btn');
+        const hint = document.getElementById('validation-hint');
+        if (allComplete) {
+            btn.style.background = '#4CAF50';
+            hint.textContent = '✓ All requirements met! Ready to continue.';
+            hint.style.color = '#2E7D32';
+        } else {
+            btn.style.background = '';
+            hint.textContent = '';
+        }
     }
 
     function validateAndProceed() {
@@ -1123,62 +1358,51 @@
         const sourceCount = parseInt(document.getElementById('source-count').value) || 0;
         const sourceExample = document.getElementById('source-example').value.trim();
 
+        const errors = [];
+
         if (!topic) {
-            alert('Please select an umbrella topic.');
-            document.getElementById('umbrella-topic').focus();
-            return;
+            errors.push('• Select an umbrella topic from the dropdown');
         }
 
         if (!eventName || eventName.length < 10) {
-            alert('Please provide a specific event name (at least 10 characters).\n\nExample: "Russia invades Ukraine" not just "Ukraine war"');
-            document.getElementById('event-name').focus();
-            return;
+            errors.push('• Event name must be at least 10 characters and specific\n  Example: "Supreme Court overturns Roe v. Wade in Dobbs decision"');
         }
 
         if (!eventDate || eventDate.length < 4) {
-            alert('Please provide a date (month and year).\n\nExample: "June 2022"');
-            document.getElementById('event-date').focus();
-            return;
-        }
-
-        const yearMatch = eventDate.match(/\b(20\d{2})\b/);
-        if (!yearMatch || parseInt(yearMatch[1]) < 2007) {
-            alert('Your event must be post-2006 (2007 or later).\n\nIf you believe this is an error, check your date format.');
-            document.getElementById('event-date').focus();
-            return;
+            errors.push('• Provide a date with month and year\n  Example: "June 2022"');
+        } else {
+            const yearMatch = eventDate.match(/\b(20\d{2})\b/);
+            if (!yearMatch || parseInt(yearMatch[1]) < 2007) {
+                errors.push('• Event must be post-2006 (2007 or later)\n  Check your date format includes the year');
+            }
         }
 
         if (change.length < 100) {
-            alert('Your "What changed" response is too brief.\n\nProvide a substantive answer (minimum 100 characters) that explains the before/after shift.');
-            document.getElementById('validation-change').focus();
-            return;
+            errors.push(`• "What changed" needs ${100 - change.length} more characters\n  Be specific about before/after differences`);
         }
 
         if (affected.length < 75) {
-            alert('Your "Who was affected" response is too brief.\n\nBe specific about demographics, groups, or populations (minimum 75 characters).');
-            document.getElementById('validation-affected').focus();
-            return;
+            errors.push(`• "Who was affected" needs ${75 - affected.length} more characters\n  Name specific groups, not "everyone" or "society"`);
         }
 
         if (legacy.length < 75) {
-            alert('Your "Ongoing debates" response is too brief.\n\nExplain current consequences or unresolved questions (minimum 75 characters).');
-            document.getElementById('validation-legacy').focus();
-            return;
+            errors.push(`• "Ongoing debates" needs ${75 - legacy.length} more characters\n  What current issues stem from this event?`);
         }
 
         if (sourceCount < 3) {
-            alert('You need at least 3 sources to proceed.\n\nSearch an academic database (JSTOR, Britannica, or your library catalog) before continuing.\n\nIf you genuinely cannot find 3 sources, your event may be too recent or obscure for this assignment.');
-            document.getElementById('source-count').focus();
-            return;
+            errors.push('• You need at least 3 academic sources\n  Search JSTOR, Britannica, or your library catalog\n  If you cannot find 3 sources, your event may be too recent/obscure');
         }
 
         if (!sourceExample || sourceExample.length < 15) {
-            alert('Please provide the title of one credible source you found.\n\nExample: "The Impact of Social Media on Democracy" by Jane Smith, Journal of Politics, 2021');
-            document.getElementById('source-example').focus();
+            errors.push('• Provide the title of one credible source you found\n  Example: "The Impact of Social Media" by Jane Smith, Journal of Politics');
+        }
+
+        if (errors.length > 0) {
+            alert('Please complete these requirements:\n\n' + errors.join('\n\n'));
             return;
         }
 
-        // Check for vague language in validation responses
+        // Vague language check
         const allValidationText = (change + ' ' + affected + ' ' + legacy).toLowerCase();
         const foundVague = vagueTerms.filter(term => allValidationText.includes(term));
         
@@ -1191,7 +1415,7 @@
             if (!proceed) return;
         }
 
-        // Create event object
+        // Create event object and proceed
         currentEvent = {
             event: eventName,
             date: eventDate,
@@ -1465,6 +1689,7 @@
         const phase = getCurrentPhase();
         const progress = (phase / 4) * 100;
         document.getElementById('progress-fill').style.width = progress + '%';
+        document.getElementById('progress-percent').textContent = Math.round(progress) + '%';
     }
 
     function saveProgress() {
@@ -1583,7 +1808,52 @@
 
         document.addEventListener('input', debouncedSave);
         document.addEventListener('change', debouncedSave);
+
+        // Add listeners for Phase 1 form fields to update checklist
+        const phase1Fields = ['umbrella-topic', 'event-name', 'event-date', 
+                              'validation-change', 'validation-affected', 'validation-legacy',
+                              'source-count', 'source-example'];
+        
+        phase1Fields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                field.addEventListener('input', updateChecklist);
+                field.addEventListener('change', updateChecklist);
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl+S or Cmd+S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                saveProgress();
+                showSavedNotification();
+            }
+        });
+
+        // Show keyboard hint after 5 seconds
+        setTimeout(() => {
+            const hint = document.getElementById('keyboard-hint');
+            if (hint) {
+                hint.classList.add('show');
+                setTimeout(() => {
+                    hint.classList.remove('show');
+                }, 3000);
+            }
+        }, 5000);
     });
+
+    function showSavedNotification() {
+        const hint = document.getElementById('keyboard-hint');
+        const originalText = hint.innerHTML;
+        hint.innerHTML = '✓ Progress Saved!';
+        hint.classList.add('show');
+        setTimeout(() => {
+            hint.innerHTML = originalText;
+            hint.classList.remove('show');
+        }, 2000);
+    }
 </script>
 
 </body>
