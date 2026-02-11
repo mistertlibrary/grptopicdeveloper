@@ -1,1 +1,1590 @@
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Proposal Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-brown: #6B4423;
+            --dark-brown: #3E2723;
+            --light-cream: #F5E6D3;
+            --soft-beige: #E8DCC4;
+            --gold: #D4AF37;
+            --gold-light: #F4D03F;
+            --text-dark: #2C1810;
+            --text-light: #8B7355;
+            --border-color: #C9B896;
+            --base-font-size: 16px;
+        }
+
+```
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-size: var(--base-font-size);
+    }
+
+    body {
+        font-family: 'Lora', Georgia, serif;
+        background: linear-gradient(135deg, var(--light-cream) 0%, var(--soft-beige) 100%);
+        color: var(--text-dark);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        line-height: 1.6;
+    }
+
+    header {
+        background: var(--primary-brown);
+        color: var(--light-cream);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-bottom: 3px solid var(--gold);
+    }
+
+    h1 {
+        margin: 0;
+        font-family: 'Crimson Text', serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 2.2rem;
+        color: var(--gold-light);
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        color: var(--soft-beige);
+        margin-top: 8px;
+        font-family: 'Lora', serif;
+        font-style: italic;
+        letter-spacing: 1px;
+    }
+
+    .header-controls {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+    }
+
+    .header-controls button, .header-controls select {
+        background: transparent;
+        border: 2px solid var(--gold);
+        color: var(--gold);
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-family: 'Lora', serif;
+        transition: all 0.3s;
+    }
+
+    .header-controls button:hover, .header-controls select:hover {
+        background: var(--gold);
+        color: var(--dark-brown);
+    }
+
+    .header-controls select {
+        padding: 0.4rem 0.75rem;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 2.5rem auto;
+        padding: 0 1.5rem;
+    }
+
+    /* CARD STYLES WITH ANIMATIONS */
+    .card {
+        background: white;
+        border: 2px solid var(--border-color);
+        border-radius: 8px;
+        padding: 3rem;
+        margin-bottom: 2.5rem;
+        box-shadow: 0 6px 24px rgba(107, 68, 35, 0.12);
+        transition: all 0.3s ease;
+        animation: slideIn 0.5s ease-out;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card:hover {
+        box-shadow: 0 8px 32px rgba(107, 68, 35, 0.18);
+    }
+
+    h2 {
+        margin-top: 0;
+        color: var(--primary-brown);
+        font-size: 1.8rem;
+        font-family: 'Crimson Text', serif;
+        font-weight: 700;
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    /* CONTROLS & INPUTS */
+    .controls {
+        display: flex;
+        justify-content: center;
+        gap: 1.25rem;
+        margin-top: 2.5rem;
+        flex-wrap: wrap;
+    }
+
+    button {
+        background: var(--primary-brown);
+        color: var(--light-cream);
+        border: none;
+        padding: 1rem 2.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 12px rgba(107, 68, 35, 0.3);
+        transition: all 0.3s ease;
+        font-family: 'Crimson Text', serif;
+        position: relative;
+    }
+
+    button:hover {
+        background: var(--dark-brown);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(107, 68, 35, 0.4);
+    }
+
+    button:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 4px;
+    }
+
+    button:active { 
+        transform: translateY(1px); 
+    }
+
+    button:disabled {
+        background: #999;
+        box-shadow: none;
+        cursor: not-allowed;
+        opacity: 0.6;
+        transform: none;
+    }
+
+    button.secondary {
+        background: white;
+        border: 2px solid var(--primary-brown);
+        color: var(--primary-brown);
+        box-shadow: none;
+    }
+
+    button.secondary:hover { 
+        background: var(--soft-beige);
+    }
+
+    /* INPUTS */
+    input[type="text"], textarea, select {
+        width: 100%;
+        padding: 1rem;
+        background: var(--light-cream);
+        border: 2px solid var(--border-color);
+        border-radius: 4px;
+        color: var(--text-dark);
+        font-family: 'Lora', serif;
+        margin-top: 8px;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+    }
+
+    input:focus, textarea:focus, select:focus {
+        outline: none;
+        border-color: var(--gold);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        transform: translateY(-1px);
+    }
+
+    textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .label-neon {
+        color: var(--primary-brown);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+        font-family: 'Crimson Text', serif;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .research-warning {
+        background: #FFF3E0;
+        border-left: 4px solid var(--gold);
+        color: var(--text-dark);
+        padding: 1.25rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .research-warning strong {
+        color: var(--primary-brown);
+        display: block;
+        margin-bottom: 0.5rem;
+        font-family: 'Crimson Text', serif;
+        font-size: 1.05rem;
+    }
+
+    .validation-box {
+        background: #E3F2FD;
+        border: 2px solid #1976D2;
+        border-radius: 6px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .validation-box h4 {
+        margin: 0 0 1rem 0;
+        color: #1565C0;
+        font-family: 'Crimson Text', serif;
+        font-size: 1.1rem;
+    }
+
+    .validation-question {
+        margin-bottom: 1.5rem;
+    }
+
+    .validation-question label {
+        display: block;
+        font-weight: 600;
+        color: #1565C0;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .validation-question textarea {
+        background: white;
+        border: 2px solid #90CAF9;
+        min-height: 80px;
+    }
+
+    .validation-question input {
+        background: white;
+        border: 2px solid #90CAF9;
+    }
+
+    .char-counter {
+        font-size: 0.85rem;
+        color: var(--text-light);
+        text-align: right;
+        margin-top: 0.25rem;
+    }
+
+    .char-counter.warning {
+        color: #F57F17;
+        font-weight: 600;
+    }
+
+    .char-counter.success {
+        color: #2E7D32;
+        font-weight: 600;
+    }
+
+    .research-tip {
+        background: var(--soft-beige);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        margin-top: 1rem;
+        overflow: hidden;
+    }
+
+    .research-tip summary {
+        padding: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--primary-brown);
+        user-select: none;
+        font-family: 'Crimson Text', serif;
+        transition: background 0.2s;
+    }
+
+    .research-tip summary:hover {
+        background: var(--light-cream);
+    }
+
+    .tip-content {
+        padding: 0 1rem 1rem 1rem;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .tip-content ul {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .tip-content li {
+        margin: 0.5rem 0;
+    }
+
+    .example-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .example-card {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .example-card strong {
+        display: block;
+        color: var(--primary-brown);
+        margin-bottom: 0.5rem;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        button, .source-chip, .card, input, textarea {
+            transition: none;
+        }
+        
+        .card {
+            animation: none;
+        }
+    }
+
+    /* SOURCE VERIFICATION */
+    .source-verification {
+        background: #E3F2FD;
+        border-left: 4px solid #1976D2;
+        padding: 1.25rem;
+        border-radius: 4px;
+        margin-bottom: 2rem;
+    }
+
+    .source-verification strong {
+        color: #1565C0;
+        display: block;
+        margin-bottom: 0.75rem;
+        font-family: 'Crimson Text', serif;
+        font-size: 1.05rem;
+    }
+
+    .source-verification input {
+        background: white;
+        border: 2px solid #90CAF9;
+    }
+
+    .source-verification input:focus {
+        border-color: #1976D2;
+    }
+
+    /* STRENGTH INDICATOR */
+    .strength-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.75rem;
+    }
+
+    .strength-ring {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 4px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        transition: all 0.4s ease;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+    }
+
+    .strength-ring.strong {
+        border-color: #4CAF50;
+        color: #4CAF50;
+        background: rgba(76, 175, 80, 0.1);
+    }
+
+    .strength-ring.moderate {
+        border-color: #FF9800;
+        color: #FF9800;
+        background: rgba(255, 152, 0, 0.1);
+    }
+
+    .strength-ring.weak {
+        border-color: #F44336;
+        color: #F44336;
+        background: rgba(244, 67, 54, 0.1);
+    }
+
+    .strength-feedback {
+        flex: 1;
+        font-size: 0.85rem;
+        color: var(--text-light);
+    }
+
+    .strength-feedback strong {
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+    }
+
+    /* PASSPORT (Print View) */
+    #passport-view {
+        background: white;
+        color: var(--text-dark);
+        padding: 3rem;
+        border: 2px solid var(--border-color);
+        border-radius: 4px;
+        font-family: 'Lora', serif;
+    }
+    
+    .pp-header {
+        border-bottom: 3px solid var(--primary-brown);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .pp-header h2 {
+        border: none;
+        padding: 0;
+        margin: 0;
+        color: var(--primary-brown);
+        font-family: 'Crimson Text', serif;
+    }
+
+    .pp-section { 
+        margin-bottom: 2rem; 
+    }
+
+    .pp-label { 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        font-size: 0.8rem; 
+        color: var(--text-light); 
+        font-family: 'Crimson Text', serif;
+        letter-spacing: 1.5px;
+        margin-bottom: 0.5rem;
+    }
+
+    .pp-content { 
+        font-size: 1.05rem; 
+        line-height: 1.7; 
+        margin-top: 0.5rem; 
+    }
+
+    .source-chip {
+        display: inline-block;
+        background: var(--primary-brown);
+        color: var(--light-cream);
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        margin-right: 0.75rem;
+        margin-bottom: 0.75rem;
+        transition: all 0.3s ease;
+        font-family: 'Crimson Text', serif;
+        letter-spacing: 0.5px;
+    }
+
+    .source-chip:hover { 
+        background: var(--dark-brown);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(107, 68, 35, 0.3);
+    }
+
+    .event-display {
+        background: var(--soft-beige);
+        padding: 1.5rem;
+        border-radius: 6px;
+        margin-bottom: 2rem;
+        text-align: center;
+        border: 1px solid var(--border-color);
+    }
+
+    .event-display h3 {
+        margin: 0.5rem 0 0 0;
+        font-size: 1.5rem;
+        color: var(--primary-brown);
+        font-family: 'Crimson Text', serif;
+    }
+
+    #aspect-example {
+        background: var(--light-cream);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    #aspect-example strong {
+        color: var(--primary-brown);
+        display: block;
+        margin-bottom: 0.75rem;
+        font-family: 'Crimson Text', serif;
+    }
+
+    #aspect-examples-list {
+        margin: 0.5rem 0 0 0;
+        padding-left: 1.5rem;
+    }
+
+    #aspect-examples-list li {
+        margin: 0.5rem 0;
+        color: var(--text-dark);
+    }
+
+    .hidden { 
+        display: none; 
+    }
+
+    .progress-bar {
+        height: 4px;
+        background: var(--soft-beige);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 101;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: var(--gold);
+        transition: width 0.5s ease;
+    }
+
+    /* Print Override */
+    @media print {
+        body { 
+            background: white; 
+            color: black; 
+        }
+        header, .container > .card, .controls, .source-chip, 
+        .validation-box, .strength-container, .source-verification, 
+        .research-warning, .research-tip { 
+            display: none !important;
+        }
+        #phase-4 { 
+            display: block !important; 
+            box-shadow: none; 
+            border: 1px solid #000; 
+            padding: 1rem; 
+        }
+        #passport-view { 
+            border: none;
+            padding: 0; 
+        }
+        .pp-header {
+            border-bottom: 2px solid #000;
+        }
+        .pp-section {
+            page-break-inside: avoid;
+        }
+        .pp-label {
+            color: #000;
+        }
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 1.6rem;
+        }
+        
+        .card {
+            padding: 2rem 1.5rem;
+        }
+
+        .header-controls {
+            position: static;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .example-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+
+<div class="progress-bar">
+    <div id="progress-fill" class="progress-fill" style="width: 25%"></div>
+</div>
+
+<header>
+    <h1>The Event Proposal Engine</h1>
+    <div class="subtitle">Global Research Project</div>
+    <div class="header-controls">
+        <label for="font-size-select" style="color: var(--gold); font-size: 0.85rem;">Text Size:</label>
+        <select id="font-size-select" aria-label="Adjust font size" onchange="adjustFontSize()">
+            <option value="14">Small</option>
+            <option value="16" selected>Medium</option>
+            <option value="18">Large</option>
+            <option value="20">Extra Large</option>
+        </select>
+    </div>
+</header>
+
+<div class="container">
+
+```
+<div id="phase-1" class="card">
+    <h2>Phase 1: Identify Your Landmark</h2>
+    <p style="margin-bottom: 1.5rem;">A <strong>landmark</strong> is "an event, discovery, or change marking an important stage or turning point." Your job is to identify a post-2006 moment that represents a genuine shift—not just something that happened, but something that <em>changed</em> how we think, act, or organize ourselves.</p>
+
+    <div class="research-warning">
+        <strong>This Tool Requires Independent Thinking</strong>
+        You must identify your own event. This tool will help you refine and develop your idea, but you need to arrive with a specific moment in mind. If you're stuck, use the brainstorming prompts below.
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="umbrella-topic" class="label-neon">1. Select Your Umbrella Topic</label>
+        <select id="umbrella-topic" aria-required="true">
+            <option value="">(choose one)</option>
+            <option value="Gender Roles and Equality">Gender Roles & Equality</option>
+            <option value="Cultural/Societal Pressures">Cultural/Societal Pressures</option>
+            <option value="Dehumanization">Dehumanization</option>
+            <option value="Religious Fundamentalism">Religious Fundamentalism</option>
+            <option value="Political Propaganda">Political Propaganda</option>
+            <option value="Violence as Power">Violence as Power</option>
+        </select>
+    </div>
+
+    <details class="research-tip">
+        <summary>Need help brainstorming? Click here for event categories</summary>
+        <div class="tip-content">
+            <p><strong>Landmarks come in many forms. Consider these categories:</strong></p>
+            <div class="example-grid">
+                <div class="example-card">
+                    <strong>Court Cases</strong>
+                    Supreme Court decisions, international tribunals, precedent-setting verdicts
+                </div>
+                <div class="example-card">
+                    <strong>Protests & Movements</strong>
+                    Mass mobilizations, viral campaigns, sustained activism
+                </div>
+                <div class="example-card">
+                    <strong>Policy Changes</strong>
+                    Laws passed, regulations enacted, treaties signed
+                </div>
+                <div class="example-card">
+                    <strong>Attacks & Crises</strong>
+                    Acts of violence, natural disasters, public health emergencies
+                </div>
+                <div class="example-card">
+                    <strong>Discoveries</strong>
+                    Scientific breakthroughs, technological releases, revelations
+                </div>
+                <div class="example-card">
+                    <strong>Cultural Shifts</strong>
+                    Viral moments, boycotts, cancellations, platform changes
+                </div>
+            </div>
+            <p style="margin-top: 1rem;"><strong>How to recognize a landmark:</strong></p>
+            <ul>
+                <li>Can you point to a "before" and "after"?</li>
+                <li>Did it spark ongoing debate or inspire similar events elsewhere?</li>
+                <li>Did it force institutions (governments, corporations, schools) to respond?</li>
+                <li>Is it still referenced today when discussing your umbrella topic?</li>
+            </ul>
+        </div>
+    </details>
+
+    <div style="margin-bottom: 1.5rem; margin-top: 2rem;">
+        <label for="event-name" class="label-neon">2. Name Your Event</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; margin-bottom: 8px; color: var(--text-light);">Be specific. Not "Ukraine war" but "Russia invades Ukraine." Not "police shooting" but "Death of George Floyd."</p>
+        <input type="text" id="event-name" placeholder="e.g., Supreme Court overturns Roe v. Wade in Dobbs decision" aria-required="true">
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="event-date" class="label-neon">3. Date (Month and Year)</label>
+        <input type="text" id="event-date" placeholder="e.g., June 2022" aria-required="true">
+        <small style="display: block; margin-top: 0.5rem; color: var(--text-light);">Must be post-2006</small>
+    </div>
+
+    <div class="validation-box">
+        <h4>Landmark Validation: Prove This is a Turning Point</h4>
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Before proceeding, demonstrate that you understand <em>why</em> this event matters. Generic or superficial answers will be flagged.</p>
+
+        <div class="validation-question">
+            <label>What changed before vs. after this event? (100+ characters)</label>
+            <textarea id="validation-change" oninput="updateCharCount('change')" placeholder="Be specific: What was legal/accepted before that wasn't after? What shift occurred in public opinion, policy, or practice?"></textarea>
+            <div class="char-counter" id="char-count-change">0 / 100 characters</div>
+        </div>
+
+        <div class="validation-question">
+            <label>Who was most affected by this event? (75+ characters)</label>
+            <textarea id="validation-affected" oninput="updateCharCount('affected')" placeholder="Identify specific groups, demographics, or populations. Avoid vague terms like 'society' or 'everyone.'"></textarea>
+            <div class="char-counter" id="char-count-affected">0 / 75 characters</div>
+        </div>
+
+        <div class="validation-question">
+            <label>What ongoing debates or consequences trace back to this moment? (75+ characters)</label>
+            <textarea id="validation-legacy" oninput="updateCharCount('legacy')" placeholder="What current issues, policies, or movements stem from this event? What questions remain unresolved?"></textarea>
+            <div class="char-counter" id="char-count-legacy">0 / 75 characters</div>
+        </div>
+    </div>
+
+    <div class="validation-box" style="background: #FFF3E0; border-color: #F57F17;">
+        <h4 style="color: #E65100;">Source Availability Check</h4>
+        <p style="margin-bottom: 1rem; font-size: 0.95rem;">Before committing to this event, verify you can find adequate research material.</p>
+        
+        <div class="validation-question">
+            <label>Search one academic database (JSTOR, Britannica, or library catalog). How many results did you find? (Minimum: 3)</label>
+            <input type="number" id="source-count" min="0" placeholder="Enter number">
+        </div>
+
+        <div class="validation-question">
+            <label>List the title of ONE credible source you found</label>
+            <input type="text" id="source-example" placeholder='e.g., "The Supreme Court and Reproductive Rights" by Jane Doe, The Atlantic, 2022'>
+        </div>
+    </div>
+
+    <details class="research-tip">
+        <summary>How do I know if my event is too broad?</summary>
+        <div class="tip-content">
+            <p><strong>Warning signs your event is too broad:</strong></p>
+            <ul>
+                <li>It spans multiple years (e.g., "Syrian Civil War" or "COVID-19 Pandemic")</li>
+                <li>It contains hundreds of distinct incidents (e.g., "Black Lives Matter Movement")</li>
+                <li>It's a trend rather than a moment (e.g., "Rise of Social Media")</li>
+            </ul>
+            <p><strong>How to narrow it:</strong></p>
+            <ul>
+                <li>From "COVID-19 Pandemic" → "WHO declares COVID-19 a pandemic (March 2020)"</li>
+                <li>From "Syrian Civil War" → "Chemical weapons attack in Ghouta (August 2013)"</li>
+                <li>From "Black Lives Matter" → "Death of George Floyd (May 2020)"</li>
+            </ul>
+            <p>A good landmark has a <strong>specific date</strong> and a <strong>single identifiable moment</strong> even if its effects ripple outward.</p>
+        </div>
+    </details>
+
+    <div class="controls">
+        <button onclick="validateAndProceed()">Validate & Continue</button>
+    </div>
+</div>
+
+<div id="phase-2" class="card hidden">
+    <h2>Phase 2: Find Your Angle</h2>
+    <p style="margin-bottom: 2rem;">Now that you've identified a turning point, select <em>which aspect</em> of this turning point you want to investigate. You can't research everything—choose your lens.</p>
+
+    <div class="event-display">
+        <div class="label-neon" style="color:var(--text-light);">Your Selected Event</div>
+        <h3 id="display-event-name"></h3>
+        <div id="display-topic-name" style="font-style: italic; color: var(--text-light); margin-top: 0.5rem;"></div>
+        <div id="display-date" style="font-size: 0.9rem; color: var(--text-light); margin-top: 0.25rem;"></div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="student-name-input" class="label-neon">Investigator Name</label>
+        <input type="text" id="student-name-input" placeholder="your full name" aria-required="true">
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="landmarkType" class="label-neon">1. Categorize It</label>
+        <select id="landmarkType" aria-required="true">
+            <option value="">(choose one)</option>
+            <option value="Event">Event (a specific occurrence)</option>
+            <option value="Discovery">Discovery (new knowledge/technology)</option>
+            <option value="Change">Change (shift in law/culture/policy)</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="aspectType" class="label-neon">2. Select Your Lens (The Aspect)</label>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: var(--text-light);">Which part of this story are you zooming in on?</p>
+        <select id="aspectType" aria-required="true">
+            <option value="">(choose one)</option>
+            <option value="Human">The Human Aspect (Who initiated it? Who was affected? What motivated them?)</option>
+            <option value="Reaction">The Reaction Aspect (How did media frame it? What did governments/institutions do? How did public opinion shift?)</option>
+            <option value="Legacy">The Legacy Aspect (What laws or policies changed? What movements emerged? What precedents remain?)</option>
+        </select>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="aspect-question" class="label-neon">3. The Big Question</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Frame your research as an inquiry, not a topic. Start with "How," "Why," or "What."</p>
+        <textarea id="aspect-question" placeholder="Example: Why did the public react so strongly to...? How did media coverage shape...? What legal precedents emerged from...?" aria-required="true"></textarea>
+    </div>
+
+    <details class="research-tip">
+        <summary>What counts as a reliable source for this project?</summary>
+        <div class="tip-content">
+            <p><strong>Prioritize these source types:</strong></p>
+            <ul>
+                <li><strong>Peer-reviewed scholarship</strong> – Academic journals (use the library!)</li>
+                <li><strong>Credentialed journalism</strong> – Established newspapers with editorial standards (NYT, WSJ, The Atlantic)</li>
+                <li><strong>Primary documents</strong> – Speeches, government reports, court decisions, eyewitness accounts</li>
+                <li><strong>Expert analysis</strong> – Think tanks, research organizations (Pew Research, Brookings)</li>
+            </ul>
+            <p><strong>Approach skeptically:</strong></p>
+            <ul>
+                <li>Social media posts (unless analyzing them as evidence)</li>
+                <li>Opinion blogs without clear authorship/credentials</li>
+                <li>Wikipedia (use only as a starting point to find actual sources)</li>
+            </ul>
+        </div>
+    </details>
+
+    <div class="controls">
+        <button class="secondary" onclick="backToPhase1()">Back</button>
+        <button onclick="goToPhase3()">Next: The Deep Dive</button>
+    </div>
+</div>
+
+<div id="phase-3" class="card hidden">
+    <h2>Phase 3: The Deep Dive</h2>
+    <p>Use your preliminary research to construct the <strong>Significance Paragraph</strong> required for your proposal. Each box builds one part of your argument. Use specific nouns, dates, and factual claims.</p>
+
+    <div class="research-warning">
+        <strong>Show Academic Integrity!</strong>
+        These boxes scaffold your thinking, but the content must come from research. Do not fabricate details. If you don't know something, find it, then write it down.
+    </div>
+
+    <div class="source-verification">
+        <strong>Prove You've Started Research</strong>
+        <p style="margin-bottom: 0.75rem;">Before drafting, cite ONE source you've already consulted. This validates preliminary research.</p>
+        <input type="text" id="source-proof" placeholder="Article title, author, publication, or URL" aria-required="true">
+        <small style="display: block; margin-top: 0.5rem; color: #1565C0;">Example: "Smith, John. 'The Impact of Dobbs.' New York Times, 2022."</small>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="sent-1" class="label-neon">1. The Hook (Who, What, Where, When?)</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Establish the basic facts: dates, locations, key players, immediate circumstances.</p>
+        <textarea id="sent-1" placeholder="Example: On June 26, 2015, the U.S. Supreme Court ruled 5-4 in Obergefell v. Hodges that state bans on same-sex marriage were unconstitutional..." aria-required="true" oninput="updateStrength(1)"></textarea>
+        <div class="strength-container">
+            <div class="strength-ring" id="strength-1">?</div>
+            <div class="strength-feedback" id="feedback-1">
+                <strong>Waiting for content...</strong>
+                Start typing to see real-time feedback on specificity.
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="sent-2" class="label-neon">2. The Context (What was happening before?)</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What was the status quo? What conditions made this event possible or necessary?</p>
+        <textarea id="sent-2" placeholder="Example: Prior to this ruling, marriage equality was a state-by-state patchwork, with 37 states recognizing same-sex unions while 13 maintained bans..." oninput="updateStrength(2)"></textarea>
+        <div class="strength-container">
+            <div class="strength-ring" id="strength-2">?</div>
+            <div class="strength-feedback" id="feedback-2">
+                <strong>Waiting for content...</strong>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="sent-3" class="label-neon">3. The Turning Point (Why is this a landmark?)</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What changed? What made this moment different from everything before it?</p>
+        <textarea id="sent-3" placeholder="Example: This was a landmark because it established a federal constitutional right to marriage, ending decades of legal discrimination and marking the culmination of the LGBTQ+ civil rights movement..." aria-required="true" oninput="updateStrength(3)"></textarea>
+        <div class="strength-container">
+            <div class="strength-ring" id="strength-3">?</div>
+            <div class="strength-feedback" id="feedback-3">
+                <strong>Waiting for content...</strong>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="sent-4" class="label-neon">4. The Connection (Tie it to your umbrella topic)</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Explicitly link this event to the broader theme you're exploring.</p>
+        <textarea id="sent-4" placeholder="Example: This connects to gender roles and equality because it challenged traditional definitions of marriage and family structure, forcing a national reckoning with evolving norms around gender and partnership..." oninput="updateStrength(4)"></textarea>
+        <div class="strength-container">
+            <div class="strength-ring" id="strength-4">?</div>
+            <div class="strength-feedback" id="feedback-4">
+                <strong>Waiting for content...</strong>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <label for="sent-5" class="label-neon">5. The Legacy (How does it affect us now?)</label>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What are the ongoing consequences? What debates or changes continue today?</p>
+        <textarea id="sent-5" placeholder="Example: Ultimately, the legacy of this decision extends beyond marriage itself, influencing workplace protections, adoption rights, and ongoing debates about religious liberty and LGBTQ+ rights..." oninput="updateStrength(5)"></textarea>
+        <div class="strength-container">
+            <div class="strength-ring" id="strength-5">?</div>
+            <div class="strength-feedback" id="feedback-5">
+                <strong>Waiting for content...</strong>
+            </div>
+        </div>
+    </div>
+
+    <details class="research-tip">
+        <summary>How do I know if my paragraph is strong enough?</summary>
+        <div class="tip-content">
+            <p><strong>Check for these elements:</strong></p>
+            <ul>
+                <li><strong>Specificity:</strong> Does every sentence contain proper nouns, dates, or concrete details?</li>
+                <li><strong>Causation:</strong> Do you explain <em>why</em> things happened, not just <em>what</em> happened?</li>
+                <li><strong>Context:</strong> Can a reader unfamiliar with this event understand its significance?</li>
+                <li><strong>Argument:</strong> Are you making a claim about significance or just summarizing?</li>
+            </ul>
+            <p><strong>Things to avoid:</strong> Vague language ("many people," "society," "things changed"), missing dates, no source-based evidence.</p>
+        </div>
+    </details>
+
+    <div class="controls">
+        <button class="secondary" onclick="backToPhase2()">Back</button>
+        <button onclick="generatePassport()">Generate Proposal</button>
+    </div>
+</div>
+
+<div id="phase-4" class="card hidden">
+    <h2>Mission Complete</h2>
+    <p style="margin-bottom: 2rem;">Your structured proposal is ready. Review it carefully, then print or save as a PDF.</p>
+    
+    <div id="passport-view">
+        <div class="pp-header">
+            <div>
+                <h2>Event Proposal</h2>
+                <div style="font-size: 0.95rem; color: var(--text-light);">Global Research Project</div>
+            </div>
+            <div style="font-size: 0.9rem;"><strong>Date:</strong> <span id="current-date"></span></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Investigator</div>
+            <div class="pp-content" id="pp-name"></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Umbrella Topic</div>
+            <div class="pp-content" id="pp-topic"></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Event Details</div>
+            <div class="pp-content">
+                <strong id="pp-event"></strong> 
+                <span style="color: var(--text-light);">(<span id="pp-date"></span>)</span>
+            </div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Landmark Justification</div>
+            <div class="pp-content" id="pp-justification" style="font-size: 0.95rem;"></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Research Question</div>
+            <div class="pp-content" id="pp-aspect"></div>
+            <div style="font-size: 0.9rem; margin-top: 0.5rem; font-style:italic; color: var(--text-light);">
+                Type: <span id="pp-type"></span> | Research Path: <span id="pp-path"></span>
+            </div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Primary Source Consulted</div>
+            <div class="pp-content" id="pp-source" style="font-style: italic;"></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Significance & Context (Draft Paragraph)</div>
+            <div class="pp-content" id="pp-paragraph" style="text-align: justify;"></div>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Research Reflection</div>
+            <textarea id="reflection" style="width: 100%; min-height: 80px; margin-top: 0.5rem;" placeholder="What surprised you during your preliminary research? What question are you most curious about now? (Not graded, but required for submission)"></textarea>
+        </div>
+
+        <div class="pp-section">
+            <div class="pp-label">Sample MLA Citation Format</div>
+            <div class="pp-content" style="font-family: 'Courier New', monospace; font-size: 0.9rem; background: var(--soft-beige); padding: 1rem; border-radius: 4px;">
+                Author. Title of Source. Title of Container, Other Contributors, Version, Number, Publisher, Publication Date, Location.
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+        <div class="label-neon" style="margin-bottom: 1rem;">Recommended Starting Points for Academic Research</div>
+        <p style="font-size: 0.95rem; margin-bottom: 1.25rem; color: var(--text-light);">
+            Use these curated sources to locate credible, peer-reviewed, and editorial-standard research on your event. Remember to evaluate each source critically and cite properly.
+        </p>
+        <div id="link-container"></div>
+    </div>
+
+    <div class="controls">
+        <button onclick="window.print()">Print / Save as PDF</button>
+        <button class="secondary" onclick="exportToNoodleTools()">Export to NoodleTools</button>
+        <button class="secondary" onclick="copyToClipboard()">Copy Paragraph</button>
+        <button class="secondary" onclick="resetTool()">Start Over</button>
+    </div>
+</div>
+```
+
+</div>
+
+<script>
+    let currentEvent = null;
+
+    const vagueTerms = [
+        'many people', 'society', 'everyone', 'things changed', 'it was important',
+        'nowadays', 'since the beginning of time', 'huge impact', 'throughout history',
+        'in today\'s world', 'massive effect', 'countless', 'numerous people',
+        'all over the world', 'the general public', 'people think', 'always been',
+        'never been', 'everyone knows', 'obviously'
+    ];
+
+    function adjustFontSize() {
+        const size = document.getElementById('font-size-select').value;
+        document.documentElement.style.setProperty('--base-font-size', size + 'px');
+        saveProgress();
+    }
+
+    function updateCharCount(field) {
+        const textarea = document.getElementById(`validation-${field}`);
+        const counter = document.getElementById(`char-count-${field}`);
+        const length = textarea.value.length;
+        
+        const requirements = {
+            'change': 100,
+            'affected': 75,
+            'legacy': 75
+        };
+        
+        const required = requirements[field];
+        counter.textContent = `${length} / ${required} characters`;
+        
+        if (length >= required) {
+            counter.className = 'char-counter success';
+        } else if (length >= required * 0.7) {
+            counter.className = 'char-counter warning';
+        } else {
+            counter.className = 'char-counter';
+        }
+        
+        saveProgress();
+    }
+
+    function validateAndProceed() {
+        const topic = document.getElementById('umbrella-topic').value;
+        const eventName = document.getElementById('event-name').value.trim();
+        const eventDate = document.getElementById('event-date').value.trim();
+        const change = document.getElementById('validation-change').value.trim();
+        const affected = document.getElementById('validation-affected').value.trim();
+        const legacy = document.getElementById('validation-legacy').value.trim();
+        const sourceCount = parseInt(document.getElementById('source-count').value) || 0;
+        const sourceExample = document.getElementById('source-example').value.trim();
+
+        if (!topic) {
+            alert('Please select an umbrella topic.');
+            document.getElementById('umbrella-topic').focus();
+            return;
+        }
+
+        if (!eventName || eventName.length < 10) {
+            alert('Please provide a specific event name (at least 10 characters).\n\nExample: "Russia invades Ukraine" not just "Ukraine war"');
+            document.getElementById('event-name').focus();
+            return;
+        }
+
+        if (!eventDate || eventDate.length < 4) {
+            alert('Please provide a date (month and year).\n\nExample: "June 2022"');
+            document.getElementById('event-date').focus();
+            return;
+        }
+
+        const yearMatch = eventDate.match(/\b(20\d{2})\b/);
+        if (!yearMatch || parseInt(yearMatch[1]) < 2007) {
+            alert('Your event must be post-2006 (2007 or later).\n\nIf you believe this is an error, check your date format.');
+            document.getElementById('event-date').focus();
+            return;
+        }
+
+        if (change.length < 100) {
+            alert('Your "What changed" response is too brief.\n\nProvide a substantive answer (minimum 100 characters) that explains the before/after shift.');
+            document.getElementById('validation-change').focus();
+            return;
+        }
+
+        if (affected.length < 75) {
+            alert('Your "Who was affected" response is too brief.\n\nBe specific about demographics, groups, or populations (minimum 75 characters).');
+            document.getElementById('validation-affected').focus();
+            return;
+        }
+
+        if (legacy.length < 75) {
+            alert('Your "Ongoing debates" response is too brief.\n\nExplain current consequences or unresolved questions (minimum 75 characters).');
+            document.getElementById('validation-legacy').focus();
+            return;
+        }
+
+        if (sourceCount < 3) {
+            alert('You need at least 3 sources to proceed.\n\nSearch an academic database (JSTOR, Britannica, or your library catalog) before continuing.\n\nIf you genuinely cannot find 3 sources, your event may be too recent or obscure for this assignment.');
+            document.getElementById('source-count').focus();
+            return;
+        }
+
+        if (!sourceExample || sourceExample.length < 15) {
+            alert('Please provide the title of one credible source you found.\n\nExample: "The Impact of Social Media on Democracy" by Jane Smith, Journal of Politics, 2021');
+            document.getElementById('source-example').focus();
+            return;
+        }
+
+        // Check for vague language in validation responses
+        const allValidationText = (change + ' ' + affected + ' ' + legacy).toLowerCase();
+        const foundVague = vagueTerms.filter(term => allValidationText.includes(term));
+        
+        if (foundVague.length > 0) {
+            const proceed = confirm(
+                `Your responses contain vague language:\n\n"${foundVague.slice(0,2).join('", "')}"\n\n` +
+                `Replace with specific groups, institutions, or concrete changes.\n\n` +
+                `Proceed anyway? (Not recommended)`
+            );
+            if (!proceed) return;
+        }
+
+        // Create event object
+        currentEvent = {
+            event: eventName,
+            date: eventDate,
+            topic: topic,
+            validation: {
+                change: change,
+                affected: affected,
+                legacy: legacy
+            },
+            sourceCount: sourceCount,
+            sourceExample: sourceExample
+        };
+
+        document.getElementById('phase-1').classList.add('hidden');
+        document.getElementById('phase-2').classList.remove('hidden');
+        
+        document.getElementById('display-event-name').innerText = currentEvent.event;
+        document.getElementById('display-topic-name').innerText = currentEvent.topic;
+        document.getElementById('display-date').innerText = currentEvent.date;
+        
+        updateProgressBar();
+        saveProgress();
+        window.scrollTo(0,0);
+    }
+
+    function backToPhase1() {
+        document.getElementById('phase-2').classList.add('hidden');
+        document.getElementById('phase-1').classList.remove('hidden');
+        updateProgressBar();
+    }
+
+    function goToPhase3() {
+        const name = document.getElementById('student-name-input').value.trim();
+        const lType = document.getElementById('landmarkType').value;
+        const aType = document.getElementById('aspectType').value;
+        const q = document.getElementById('aspect-question').value.trim();
+
+        if (!name || !lType || !aType || q.length < 10) {
+            alert("Please complete all required fields before proceeding.\n\n" +
+                  "• Investigator name\n" +
+                  "• Event categorization\n" +
+                  "• Research lens/aspect\n" +
+                  "• Research question (at least 10 characters)");
+            return;
+        }
+
+        if (!q.match(/^(how|why|what|when|where|who|which|to what extent)/i)) {
+            const proceed = confirm(
+                "Research questions typically begin with inquiry words like 'How,' 'Why,' or 'What.'\n\n" +
+                "Your question doesn't follow this pattern. Are you sure you want to proceed?"
+            );
+            if (!proceed) return;
+        }
+
+        document.getElementById('phase-2').classList.add('hidden');
+        document.getElementById('phase-3').classList.remove('hidden');
+        updateProgressBar();
+        saveProgress();
+        window.scrollTo(0,0);
+    }
+
+    function backToPhase2() {
+        document.getElementById('phase-3').classList.add('hidden');
+        document.getElementById('phase-2').classList.remove('hidden');
+        updateProgressBar();
+    }
+
+    function analyzeStrength(text) {
+        if (text.trim().length < 20) {
+            return { level: 'weak', message: 'Too short - add more detail' };
+        }
+
+        const properNouns = (text.match(/[A-Z][a-z]+(?:\s[A-Z][a-z]+)*/g) || []).length;
+        const dates = (text.match(/\b(19|20)\d{2}\b|\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b/gi) || []).length;
+        const vague = vagueTerms.filter(t => text.toLowerCase().includes(t));
+        const numbers = (text.match(/\b\d+\b/g) || []).length;
+
+        if (properNouns >= 3 && dates >= 1 && vague.length === 0) {
+            return { level: 'strong', message: `Strong specificity! ${properNouns} proper nouns, ${dates} dates.` };
+        }
+        
+        if (properNouns >= 2 && dates >= 1 && vague.length <= 1) {
+            return { level: 'moderate', message: vague.length ? `Good, but avoid: "${vague[0]}"` : 'Add more concrete details' };
+        }
+        
+        if (vague.length > 0) {
+            return { level: 'weak', message: `Too vague - found: "${vague.slice(0, 2).join('", "')}"` };
+        }
+        
+        return { level: 'weak', message: 'Needs proper nouns and dates' };
+    }
+
+    function updateStrength(boxNumber) {
+        const textarea = document.getElementById(`sent-${boxNumber}`);
+        const ring = document.getElementById(`strength-${boxNumber}`);
+        const feedback = document.getElementById(`feedback-${boxNumber}`);
+        
+        const text = textarea.value;
+        const result = analyzeStrength(text);
+        
+        ring.className = 'strength-ring ' + result.level;
+        ring.textContent = result.level === 'strong' ? '✓' : result.level === 'moderate' ? '~' : '!';
+        
+        feedback.innerHTML = `<strong>${result.level.charAt(0).toUpperCase() + result.level.slice(1)}</strong>${result.message}`;
+        
+        saveProgress();
+    }
+
+    function generatePassport() {
+        const s1 = document.getElementById('sent-1').value.trim();
+        const s3 = document.getElementById('sent-3').value.trim();
+        const sourceProof = document.getElementById('source-proof').value.trim();
+        
+        if (!sourceProof || sourceProof.length < 10) {
+            alert("You must cite at least ONE source you've consulted before generating your proposal.\n\n" +
+                  "This validates that you've started preliminary research.");
+            document.getElementById('source-proof').focus();
+            return;
+        }
+        
+        if (s1.length < 20 || s3.length < 20) {
+            alert("Your significance paragraph requires substantive content.\n\n" +
+                  "At minimum, you must complete:\n" +
+                  "• Box 1 (The Hook) - at least 20 characters\n" +
+                  "• Box 3 (The Turning Point) - at least 20 characters\n\n" +
+                  "These are the core components of your argument.");
+            return;
+        }
+
+        const allText = [s1, 
+            document.getElementById('sent-2').value,
+            s3,
+            document.getElementById('sent-4').value,
+            document.getElementById('sent-5').value
+        ].join(' ').toLowerCase();
+
+        const foundVague = vagueTerms.filter(term => allText.includes(term));
+        
+        if (foundVague.length > 0) {
+            const proceed = confirm(
+                `Your paragraph contains vague language that weakens academic writing:\n\n` +
+                `Found: "${foundVague.slice(0,3).join('", "')}"\n\n` +
+                `Consider replacing with:\n` +
+                `• Specific groups/demographics instead of "many people"\n` +
+                `• Particular institutions/laws instead of "society"\n` +
+                `• Concrete changes with evidence instead of "things changed"\n\n` +
+                `Proceed anyway?`
+            );
+            if (!proceed) return;
+        }
+
+        const now = new Date();
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+        const dateStr = `${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+        
+        document.getElementById('current-date').innerText = dateStr;
+        document.getElementById('pp-name').innerText = document.getElementById('student-name-input').value;
+        document.getElementById('pp-topic').innerText = currentEvent.topic;
+        document.getElementById('pp-event').innerText = currentEvent.event;
+        document.getElementById('pp-date').innerText = currentEvent.date;
+        document.getElementById('pp-aspect').innerText = document.getElementById('aspect-question').value;
+        document.getElementById('pp-type').innerText = document.getElementById('landmarkType').value;
+        document.getElementById('pp-path').innerText = document.getElementById('aspectType').value;
+        document.getElementById('pp-source').innerText = sourceProof;
+
+        // Add justification summary
+        const justification = `Change: ${currentEvent.validation.change} // Affected: ${currentEvent.validation.affected} // Legacy: ${currentEvent.validation.legacy}`;
+        document.getElementById('pp-justification').innerText = justification;
+
+        const paragraph = [
+            document.getElementById('sent-1').value,
+            document.getElementById('sent-2').value,
+            document.getElementById('sent-3').value,
+            document.getElementById('sent-4').value,
+            document.getElementById('sent-5').value
+        ].filter(s => s.trim().length > 0).join(' ');
+        
+        document.getElementById('pp-paragraph').innerText = paragraph;
+
+        const container = document.getElementById('link-container');
+        container.innerHTML = '';
+        
+        const sources = [
+            { name: "The New York Times", url: "https://www.nytimes.com/" },
+            { name: "The Wall Street Journal", url: "https://www.wsj.com/" },
+            { name: "The Atlantic", url: "https://www.theatlantic.com/" },
+            { name: "Britannica School", url: "https://school.eb.com/" },
+            { name: "Explora Secondary Schools", url: "https://research.ebsco.com/c/z7bwvs" },
+            { name: "JSTOR Home", url: "https://www.jstor.org/" }
+        ];
+
+        sources.forEach(s => {
+            const a = document.createElement('a');
+            a.href = s.url;
+            a.target = "_blank";
+            a.className = "source-chip";
+            a.rel = "noopener noreferrer";
+            a.innerText = s.name;
+            container.appendChild(a);
+        });
+
+        document.getElementById('phase-3').classList.add('hidden');
+        document.getElementById('phase-4').classList.remove('hidden');
+        updateProgressBar();
+        saveProgress();
+        window.scrollTo(0,0);
+    }
+
+    function copyToClipboard() {
+        const paragraph = document.getElementById('pp-paragraph').innerText;
+        navigator.clipboard.writeText(paragraph).then(() => {
+            alert('Paragraph copied to clipboard!');
+        }).catch(() => {
+            alert('Failed to copy. Please manually select and copy the text.');
+        });
+    }
+
+    function exportToNoodleTools() {
+        const studentName = document.getElementById('pp-name').innerText;
+        const eventName = currentEvent.event;
+        const eventDate = currentEvent.date;
+        const topic = currentEvent.topic;
+        const sourceProof = document.getElementById('pp-source').innerText;
+        
+        let csv = 'Type,Author,Title,Publication,Date,URL,Notes\n';
+        
+        csv += `Web Page,,"${eventName.replace(/"/g, '""')}",Multiple Sources,${eventDate},,"Research on ${topic}. Investigator: ${studentName}"\n`;
+        
+        if (sourceProof && sourceProof.length > 10) {
+            csv += `Source,,"${sourceProof.replace(/"/g, '""')}",Consulted,2024,,"Primary source consulted"\n`;
+        }
+        
+        csv += 'Database,Multiple Authors,"Research Articles",JSTOR,2024,https://www.jstor.org/,"Academic database"\n';
+        csv += 'Website,,"News Coverage",The New York Times,2024,https://www.nytimes.com/,"News analysis"\n';
+        csv += 'Website,,"News Coverage",The Wall Street Journal,2024,https://www.wsj.com/,"Business news"\n';
+        csv += 'Website,,"Magazine Articles",The Atlantic,2024,https://www.theatlantic.com/,"Long-form journalism"\n';
+        csv += 'Database,,"Reference Articles",Britannica School,2024,https://school.eb.com/,"Encyclopedia"\n';
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const filename = `${eventName.replace(/[^a-z0-9]/gi, '_').substring(0,50)}_NoodleTools.csv`;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        
+        alert('CSV file downloaded!\n\nImport into NoodleTools:\n1. Log into NoodleTools\n2. Open your project\n3. Click "Import" in Sources\n4. Select "Import from file"\n5. Upload this CSV\n6. Review and edit as needed');
+    }
+
+    function resetTool() {
+        if (confirm('Are you sure you want to start over? All progress will be lost.')) {
+            localStorage.removeItem('eventProposalProgress');
+            location.reload();
+        }
+    }
+
+    // PROGRESS TRACKING
+    function getCurrentPhase() {
+        if (!document.getElementById('phase-1').classList.contains('hidden')) return 1;
+        if (!document.getElementById('phase-2').classList.contains('hidden')) return 2;
+        if (!document.getElementById('phase-3').classList.contains('hidden')) return 3;
+        if (!document.getElementById('phase-4').classList.contains('hidden')) return 4;
+        return 1;
+    }
+
+    function updateProgressBar() {
+        const phase = getCurrentPhase();
+        const progress = (phase / 4) * 100;
+        document.getElementById('progress-fill').style.width = progress + '%';
+    }
+
+    function saveProgress() {
+        const progress = {
+            currentEvent,
+            phase: getCurrentPhase(),
+            fontSize: document.getElementById('font-size-select').value,
+            formData: {
+                topic: document.getElementById('umbrella-topic')?.value || '',
+                eventName: document.getElementById('event-name')?.value || '',
+                eventDate: document.getElementById('event-date')?.value || '',
+                validationChange: document.getElementById('validation-change')?.value || '',
+                validationAffected: document.getElementById('validation-affected')?.value || '',
+                validationLegacy: document.getElementById('validation-legacy')?.value || '',
+                sourceCount: document.getElementById('source-count')?.value || '',
+                sourceExample: document.getElementById('source-example')?.value || '',
+                studentName: document.getElementById('student-name-input')?.value || '',
+                landmarkType: document.getElementById('landmarkType')?.value || '',
+                aspectType: document.getElementById('aspectType')?.value || '',
+                question: document.getElementById('aspect-question')?.value || '',
+                sourceProof: document.getElementById('source-proof')?.value || '',
+                sent1: document.getElementById('sent-1')?.value || '',
+                sent2: document.getElementById('sent-2')?.value || '',
+                sent3: document.getElementById('sent-3')?.value || '',
+                sent4: document.getElementById('sent-4')?.value || '',
+                sent5: document.getElementById('sent-5')?.value || '',
+                reflection: document.getElementById('reflection')?.value || ''
+            }
+        };
+        localStorage.setItem('eventProposalProgress', JSON.stringify(progress));
+    }
+
+    function restoreProgress(progress) {
+        currentEvent = progress.currentEvent;
+
+        if (progress.fontSize) {
+            document.getElementById('font-size-select').value = progress.fontSize;
+            adjustFontSize();
+        }
+
+        for(let i = 1; i <= 4; i++) {
+            document.getElementById(`phase-${i}`).classList.add('hidden');
+        }
+
+        document.getElementById(`phase-${progress.phase}`).classList.remove('hidden');
+
+        const fd = progress.formData;
+        if (document.getElementById('umbrella-topic')) document.getElementById('umbrella-topic').value = fd.topic;
+        if (document.getElementById('event-name')) document.getElementById('event-name').value = fd.eventName;
+        if (document.getElementById('event-date')) document.getElementById('event-date').value = fd.eventDate;
+        if (document.getElementById('validation-change')) {
+            document.getElementById('validation-change').value = fd.validationChange;
+            updateCharCount('change');
+        }
+        if (document.getElementById('validation-affected')) {
+            document.getElementById('validation-affected').value = fd.validationAffected;
+            updateCharCount('affected');
+        }
+        if (document.getElementById('validation-legacy')) {
+            document.getElementById('validation-legacy').value = fd.validationLegacy;
+            updateCharCount('legacy');
+        }
+        if (document.getElementById('source-count')) document.getElementById('source-count').value = fd.sourceCount;
+        if (document.getElementById('source-example')) document.getElementById('source-example').value = fd.sourceExample;
+        if (document.getElementById('student-name-input')) document.getElementById('student-name-input').value = fd.studentName;
+        if (document.getElementById('landmarkType')) document.getElementById('landmarkType').value = fd.landmarkType;
+        if (document.getElementById('aspectType')) document.getElementById('aspectType').value = fd.aspectType;
+        if (document.getElementById('aspect-question')) document.getElementById('aspect-question').value = fd.question;
+        if (document.getElementById('source-proof')) document.getElementById('source-proof').value = fd.sourceProof;
+        if (document.getElementById('sent-1')) document.getElementById('sent-1').value = fd.sent1;
+        if (document.getElementById('sent-2')) document.getElementById('sent-2').value = fd.sent2;
+        if (document.getElementById('sent-3')) document.getElementById('sent-3').value = fd.sent3;
+        if (document.getElementById('sent-4')) document.getElementById('sent-4').value = fd.sent4;
+        if (document.getElementById('sent-5')) document.getElementById('sent-5').value = fd.sent5;
+        if (document.getElementById('reflection')) document.getElementById('reflection').value = fd.reflection;
+
+        if (progress.phase >= 2 && currentEvent) {
+            document.getElementById('display-event-name').innerText = currentEvent.event;
+            document.getElementById('display-topic-name').innerText = currentEvent.topic;
+            document.getElementById('display-date').innerText = currentEvent.date;
+        }
+
+        if (progress.phase >= 3) {
+            for (let i = 1; i <= 5; i++) {
+                updateStrength(i);
+            }
+        }
+
+        updateProgressBar();
+    }
+
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    const debouncedSave = debounce(saveProgress, 1000);
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('eventProposalProgress');
+        if (saved) {
+            const progress = JSON.parse(saved);
+            if (confirm('You have saved progress from a previous session. Would you like to continue where you left off?')) {
+                restoreProgress(progress);
+            } else {
+                localStorage.removeItem('eventProposalProgress');
+            }
+        }
+
+        document.addEventListener('input', debouncedSave);
+        document.addEventListener('change', debouncedSave);
+    });
+</script>
+
+</body>
+</html>
