@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -22,703 +21,713 @@
             --base-font-size: 16px;
         }
 
-```
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        font-size: var(--base-font-size);
-    }
-
-    body {
-        font-family: 'Lora', Georgia, serif;
-        background: linear-gradient(135deg, var(--light-cream) 0%, var(--soft-beige) 100%);
-        color: var(--text-dark);
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        line-height: 1.6;
-    }
-
-    header {
-        background: var(--primary-brown);
-        color: var(--light-cream);
-        padding: 2rem 1.5rem;
-        text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        border-bottom: 3px solid var(--gold);
-    }
-
-    h1 {
-        margin: 0;
-        font-family: 'Crimson Text', serif;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 2.2rem;
-        color: var(--gold-light);
-    }
-
-    .subtitle {
-        font-size: 0.95rem;
-        color: var(--soft-beige);
-        margin-top: 8px;
-        font-family: 'Lora', serif;
-        font-style: italic;
-        letter-spacing: 1px;
-    }
-
-    .header-controls {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        display: flex;
-        gap: 0.75rem;
-        align-items: center;
-    }
-
-    .header-controls button, .header-controls select {
-        background: transparent;
-        border: 2px solid var(--gold);
-        color: var(--gold);
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-family: 'Lora', serif;
-        transition: all 0.3s;
-    }
-
-    .header-controls button:hover, .header-controls select:hover {
-        background: var(--gold);
-        color: var(--dark-brown);
-    }
-
-    .header-controls select {
-        padding: 0.4rem 0.75rem;
-    }
-
-    .container {
-        max-width: 900px;
-        margin: 2.5rem auto;
-        padding: 0 1.5rem;
-    }
-
-    /* CARD STYLES WITH ANIMATIONS */
-    .card {
-        background: white;
-        border: 2px solid var(--border-color);
-        border-radius: 8px;
-        padding: 3rem;
-        margin-bottom: 2.5rem;
-        box-shadow: 0 6px 24px rgba(107, 68, 35, 0.12);
-        transition: all 0.3s ease;
-        animation: slideIn 0.5s ease-out;
-    }
-
-    @keyframes slideIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
+        * {
+            box-sizing: border-box;
         }
-        to {
-            opacity: 1;
-            transform: translateY(0);
+
+        html {
+            font-size: var(--base-font-size);
         }
-    }
 
-    .card:hover {
-        box-shadow: 0 8px 32px rgba(107, 68, 35, 0.18);
-    }
-
-    h2 {
-        margin-top: 0;
-        color: var(--primary-brown);
-        font-size: 1.8rem;
-        font-family: 'Crimson Text', serif;
-        font-weight: 700;
-        border-bottom: 2px solid var(--gold);
-        padding-bottom: 12px;
-        margin-bottom: 1.5rem;
-    }
-
-    /* CONTROLS & INPUTS */
-    .controls {
-        display: flex;
-        justify-content: center;
-        gap: 1.25rem;
-        margin-top: 2.5rem;
-        flex-wrap: wrap;
-    }
-
-    button {
-        background: var(--primary-brown);
-        color: var(--light-cream);
-        border: none;
-        padding: 1rem 2.5rem;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 4px 12px rgba(107, 68, 35, 0.3);
-        transition: all 0.3s ease;
-        font-family: 'Crimson Text', serif;
-        position: relative;
-    }
-
-    button:hover {
-        background: var(--dark-brown);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(107, 68, 35, 0.4);
-    }
-
-    button:focus-visible {
-        outline: 3px solid var(--gold);
-        outline-offset: 4px;
-    }
-
-    button:active { 
-        transform: translateY(1px); 
-    }
-
-    button:disabled {
-        background: #999;
-        box-shadow: none;
-        cursor: not-allowed;
-        opacity: 0.6;
-        transform: none;
-    }
-
-    button.secondary {
-        background: white;
-        border: 2px solid var(--primary-brown);
-        color: var(--primary-brown);
-        box-shadow: none;
-    }
-
-    button.secondary:hover { 
-        background: var(--soft-beige);
-    }
-
-    /* INPUTS */
-    input[type="text"], textarea, select {
-        width: 100%;
-        padding: 1rem;
-        background: var(--light-cream);
-        border: 2px solid var(--border-color);
-        border-radius: 4px;
-        color: var(--text-dark);
-        font-family: 'Lora', serif;
-        margin-top: 8px;
-        transition: all 0.3s ease;
-        font-size: 1rem;
-    }
-
-    input:focus, textarea:focus, select:focus {
-        outline: none;
-        border-color: var(--gold);
-        background: white;
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        transform: translateY(-1px);
-    }
-
-    textarea {
-        min-height: 100px;
-        resize: vertical;
-    }
-
-    .label-neon {
-        color: var(--primary-brown);
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.85rem;
-        letter-spacing: 1.5px;
-        font-family: 'Crimson Text', serif;
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-
-    .research-warning {
-        background: #FFF3E0;
-        border-left: 4px solid var(--gold);
-        color: var(--text-dark);
-        padding: 1.25rem;
-        border-radius: 4px;
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-        animation: fadeIn 0.4s ease-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .research-warning strong {
-        color: var(--primary-brown);
-        display: block;
-        margin-bottom: 0.5rem;
-        font-family: 'Crimson Text', serif;
-        font-size: 1.05rem;
-    }
-
-    .validation-box {
-        background: #E3F2FD;
-        border: 2px solid #1976D2;
-        border-radius: 6px;
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-    }
-
-    .validation-box h4 {
-        margin: 0 0 1rem 0;
-        color: #1565C0;
-        font-family: 'Crimson Text', serif;
-        font-size: 1.1rem;
-    }
-
-    .validation-question {
-        margin-bottom: 1.5rem;
-    }
-
-    .validation-question label {
-        display: block;
-        font-weight: 600;
-        color: #1565C0;
-        margin-bottom: 0.5rem;
-        font-size: 0.95rem;
-    }
-
-    .validation-question textarea {
-        background: white;
-        border: 2px solid #90CAF9;
-        min-height: 80px;
-    }
-
-    .validation-question input {
-        background: white;
-        border: 2px solid #90CAF9;
-    }
-
-    .char-counter {
-        font-size: 0.85rem;
-        color: var(--text-light);
-        text-align: right;
-        margin-top: 0.25rem;
-    }
-
-    .char-counter.warning {
-        color: #F57F17;
-        font-weight: 600;
-    }
-
-    .char-counter.success {
-        color: #2E7D32;
-        font-weight: 600;
-    }
-
-    .research-tip {
-        background: var(--soft-beige);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        margin-top: 1rem;
-        overflow: hidden;
-    }
-
-    .research-tip summary {
-        padding: 1rem;
-        cursor: pointer;
-        font-weight: 600;
-        color: var(--primary-brown);
-        user-select: none;
-        font-family: 'Crimson Text', serif;
-        transition: background 0.2s;
-    }
-
-    .research-tip summary:hover {
-        background: var(--light-cream);
-    }
-
-    .tip-content {
-        padding: 0 1rem 1rem 1rem;
-        border-top: 1px solid var(--border-color);
-    }
-
-    .tip-content ul {
-        margin: 0.5rem 0;
-        padding-left: 1.5rem;
-    }
-
-    .tip-content li {
-        margin: 0.5rem 0;
-    }
-
-    .example-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-    }
-
-    .example-card {
-        background: white;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        padding: 1rem;
-        font-size: 0.9rem;
-    }
-
-    .example-card strong {
-        display: block;
-        color: var(--primary-brown);
-        margin-bottom: 0.5rem;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        button, .source-chip, .card, input, textarea {
-            transition: none;
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: linear-gradient(135deg, var(--light-cream) 0%, var(--soft-beige) 100%);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            line-height: 1.6;
         }
-        
-        .card {
-            animation: none;
-        }
-    }
 
-    /* SOURCE VERIFICATION */
-    .source-verification {
-        background: #E3F2FD;
-        border-left: 4px solid #1976D2;
-        padding: 1.25rem;
-        border-radius: 4px;
-        margin-bottom: 2rem;
-    }
-
-    .source-verification strong {
-        color: #1565C0;
-        display: block;
-        margin-bottom: 0.75rem;
-        font-family: 'Crimson Text', serif;
-        font-size: 1.05rem;
-    }
-
-    .source-verification input {
-        background: white;
-        border: 2px solid #90CAF9;
-    }
-
-    .source-verification input:focus {
-        border-color: #1976D2;
-    }
-
-    /* STRENGTH INDICATOR */
-    .strength-container {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-top: 0.75rem;
-    }
-
-    .strength-ring {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 4px solid #e0e0e0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.75rem;
-        font-weight: 700;
-        transition: all 0.4s ease;
-        animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-    }
-
-    .strength-ring.strong {
-        border-color: #4CAF50;
-        color: #4CAF50;
-        background: rgba(76, 175, 80, 0.1);
-    }
-
-    .strength-ring.moderate {
-        border-color: #FF9800;
-        color: #FF9800;
-        background: rgba(255, 152, 0, 0.1);
-    }
-
-    .strength-ring.weak {
-        border-color: #F44336;
-        color: #F44336;
-        background: rgba(244, 67, 54, 0.1);
-    }
-
-    .strength-feedback {
-        flex: 1;
-        font-size: 0.85rem;
-        color: var(--text-light);
-    }
-
-    .strength-feedback strong {
-        display: block;
-        font-size: 0.9rem;
-        margin-bottom: 0.25rem;
-    }
-
-    /* PASSPORT (Print View) */
-    #passport-view {
-        background: white;
-        color: var(--text-dark);
-        padding: 3rem;
-        border: 2px solid var(--border-color);
-        border-radius: 4px;
-        font-family: 'Lora', serif;
-    }
-    
-    .pp-header {
-        border-bottom: 3px solid var(--primary-brown);
-        padding-bottom: 1rem;
-        margin-bottom: 2rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-
-    .pp-header h2 {
-        border: none;
-        padding: 0;
-        margin: 0;
-        color: var(--primary-brown);
-        font-family: 'Crimson Text', serif;
-    }
-
-    .pp-section { 
-        margin-bottom: 2rem; 
-    }
-
-    .pp-label { 
-        font-weight: 700; 
-        text-transform: uppercase; 
-        font-size: 0.8rem; 
-        color: var(--text-light); 
-        font-family: 'Crimson Text', serif;
-        letter-spacing: 1.5px;
-        margin-bottom: 0.5rem;
-    }
-
-    .pp-content { 
-        font-size: 1.05rem; 
-        line-height: 1.7; 
-        margin-top: 0.5rem; 
-    }
-
-    .source-chip {
-        display: inline-block;
-        background: var(--primary-brown);
-        color: var(--light-cream);
-        padding: 0.6rem 1.2rem;
-        border-radius: 4px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.85rem;
-        margin-right: 0.75rem;
-        margin-bottom: 0.75rem;
-        transition: all 0.3s ease;
-        font-family: 'Crimson Text', serif;
-        letter-spacing: 0.5px;
-    }
-
-    .source-chip:hover { 
-        background: var(--dark-brown);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(107, 68, 35, 0.3);
-    }
-
-    .event-display {
-        background: var(--soft-beige);
-        padding: 1.5rem;
-        border-radius: 6px;
-        margin-bottom: 2rem;
-        text-align: center;
-        border: 1px solid var(--border-color);
-    }
-
-    .event-display h3 {
-        margin: 0.5rem 0 0 0;
-        font-size: 1.5rem;
-        color: var(--primary-brown);
-        font-family: 'Crimson Text', serif;
-    }
-
-    #aspect-example {
-        background: var(--light-cream);
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-
-    #aspect-example strong {
-        color: var(--primary-brown);
-        display: block;
-        margin-bottom: 0.75rem;
-        font-family: 'Crimson Text', serif;
-    }
-
-    #aspect-examples-list {
-        margin: 0.5rem 0 0 0;
-        padding-left: 1.5rem;
-    }
-
-    #aspect-examples-list li {
-        margin: 0.5rem 0;
-        color: var(--text-dark);
-    }
-
-    .hidden { 
-        display: none; 
-    }
-
-    .progress-bar {
-        height: 4px;
-        background: var(--soft-beige);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 101;
-    }
-
-    .progress-fill {
-        height: 100%;
-        background: var(--gold);
-        transition: width 0.5s ease;
-    }
-
-    /* Print Override */
-    @media print {
-        body { 
-            background: white; 
-            color: black; 
-        }
-        header, .container > .card, .controls, .source-chip, 
-        .validation-box, .strength-container, .source-verification, 
-        .research-warning, .research-tip { 
-            display: none !important;
-        }
-        #phase-4 { 
-            display: block !important; 
-            box-shadow: none; 
-            border: 1px solid #000; 
-            padding: 1rem; 
-        }
-        #passport-view { 
-            border: none;
-            padding: 0; 
-        }
-        .pp-header {
-            border-bottom: 2px solid #000;
-        }
-        .pp-section {
-            page-break-inside: avoid;
-        }
-        .pp-label {
-            color: #000;
-        }
-    }
-
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 1.6rem;
-        }
-        
-        .card {
+        header {
+            background: var(--primary-brown);
+            color: var(--light-cream);
             padding: 2rem 1.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-bottom: 3px solid var(--gold);
+        }
+
+        h1 {
+            margin: 0;
+            font-family: 'Crimson Text', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 2.2rem;
+            color: var(--gold-light);
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--soft-beige);
+            margin-top: 8px;
+            font-family: 'Lora', serif;
+            font-style: italic;
+            letter-spacing: 1px;
         }
 
         .header-controls {
-            position: static;
-            margin-top: 1rem;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .header-controls button, .header-controls select {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: 'Lora', serif;
+            transition: all 0.3s;
+        }
+
+        .header-controls button:hover, .header-controls select:hover {
+            background: var(--gold);
+            color: var(--dark-brown);
+        }
+
+        .header-controls select {
+            padding: 0.4rem 0.75rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* CARD STYLES WITH ANIMATIONS */
+        .card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 24px rgba(107, 68, 35, 0.12);
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(107, 68, 35, 0.18);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: var(--primary-brown);
+            font-size: 1.8rem;
+            font-family: 'Crimson Text', serif;
+            font-weight: 700;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CONTROLS & INPUTS */
+        .controls {
+            display: flex;
             justify-content: center;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
             flex-wrap: wrap;
         }
 
-        .example-grid {
-            grid-template-columns: 1fr;
+        button {
+            background: var(--primary-brown);
+            color: var(--light-cream);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(107, 68, 35, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+            position: relative;
+        }
+
+        button:hover {
+            background: var(--dark-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(107, 68, 35, 0.4);
+        }
+
+        button:focus-visible {
+            outline: 3px solid var(--gold);
+            outline-offset: 4px;
+        }
+
+        button:active { 
+            transform: translateY(1px); 
+        }
+
+        button:disabled {
+            background: #999;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+        }
+
+        button.secondary {
+            background: white;
+            border: 2px solid var(--primary-brown);
+            color: var(--primary-brown);
+            box-shadow: none;
+        }
+
+        button.secondary:hover { 
+            background: var(--soft-beige);
+        }
+
+        /* INPUTS */
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--light-cream);
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-dark);
+            font-family: 'Lora', serif;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            transform: translateY(-1px);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .label-neon {
+            color: var(--primary-brown);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1.5px;
+            font-family: 'Crimson Text', serif;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .research-warning {
+            background: #FFF3E0;
+            border-left: 4px solid var(--gold);
+            color: var(--text-dark);
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .research-warning strong {
+            color: var(--primary-brown);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
         }
 
         .validation-box {
-            padding: 1rem;
+            background: #E3F2FD;
+            border: 2px solid #1976D2;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
         }
 
-        .validation-question textarea {
-            min-height: 60px;
+        .validation-box h4 {
+            margin: 0 0 1rem 0;
+            color: #1565C0;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.1rem;
+        }
+
+        .validation-question {
+            margin-bottom: 1.5rem;
+        }
+
+        .validation-question label {
+            display: block;
+            font-weight: 600;
+            color: #1565C0;
+            margin-bottom: 0.5rem;
             font-size: 0.95rem;
         }
 
-        .source-chip {
-            font-size: 0.8rem;
-            padding: 0.5rem 0.9rem;
+        .validation-question textarea {
+            background: white;
+            border: 2px solid #90CAF9;
+            min-height: 80px;
         }
 
+        .validation-question input {
+            background: white;
+            border: 2px solid #90CAF9;
+        }
+
+        .char-counter {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        .char-counter.warning {
+            color: #F57F17;
+            font-weight: 600;
+        }
+
+        .char-counter.success {
+            color: #2E7D32;
+            font-weight: 600;
+        }
+
+        .research-tip {
+            background: var(--soft-beige);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .research-tip summary {
+            padding: 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--primary-brown);
+            user-select: none;
+            font-family: 'Crimson Text', serif;
+            transition: background 0.2s;
+        }
+
+        .research-tip summary:hover {
+            background: var(--light-cream);
+        }
+
+        .tip-content {
+            padding: 0 1rem 1rem 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tip-content ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .tip-content li {
+            margin: 0.5rem 0;
+        }
+
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .example-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .example-card strong {
+            display: block;
+            color: var(--primary-brown);
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .simple-box {
+            background: var(--light-cream);
+            border: 2px solid var(--gold);
+            border-radius: 6px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .simple-box h4 {
+            margin: 0 0 1rem 0;
+            color: var(--primary-brown);
+            font-family: 'Crimson Text', serif;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            button, .source-chip, .card, input, textarea {
+                transition: none;
+            }
+            
+            .card {
+                animation: none;
+            }
+        }
+
+        /* SOURCE VERIFICATION */
+        .source-verification {
+            background: #E3F2FD;
+            border-left: 4px solid #1976D2;
+            padding: 1.25rem;
+            border-radius: 4px;
+            margin-bottom: 2rem;
+        }
+
+        .source-verification strong {
+            color: #1565C0;
+            display: block;
+            margin-bottom: 0.75rem;
+            font-family: 'Crimson Text', serif;
+            font-size: 1.05rem;
+        }
+
+        .source-verification input {
+            background: white;
+            border: 2px solid #90CAF9;
+        }
+
+        .source-verification input:focus {
+            border-color: #1976D2;
+        }
+
+        /* STRENGTH INDICATOR */
+        .strength-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 0.75rem;
+        }
+
+        .strength-ring {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 4px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .strength-ring.strong {
+            border-color: #4CAF50;
+            color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .strength-ring.moderate {
+            border-color: #FF9800;
+            color: #FF9800;
+            background: rgba(255, 152, 0, 0.1);
+        }
+
+        .strength-ring.weak {
+            border-color: #F44336;
+            color: #F44336;
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .strength-feedback {
+            flex: 1;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .strength-feedback strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* PASSPORT (Print View) */
+        #passport-view {
+            background: white;
+            color: var(--text-dark);
+            padding: 3rem;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            font-family: 'Lora', serif;
+        }
+        
         .pp-header {
-            flex-direction: column;
-            align-items: flex-start;
+            border-bottom: 3px solid var(--primary-brown);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
-        .controls {
-            flex-direction: column;
-            width: 100%;
+        .pp-header h2 {
+            border: none;
+            padding: 0;
+            margin: 0;
+            color: var(--primary-brown);
+            font-family: 'Crimson Text', serif;
         }
 
-        .controls button {
-            width: 100%;
+        .pp-section { 
+            margin-bottom: 2rem; 
         }
 
-        .progress-fill div {
-            display: none; /* Hide percentage text on mobile */
+        .pp-label { 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            color: var(--text-light); 
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
         }
-    }
 
-    /* Keyboard shortcut hint */
-    .keyboard-hint {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: rgba(107, 68, 35, 0.9);
-        color: var(--light-cream);
-        padding: 0.75rem 1rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        z-index: 99;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        animation: fadeIn 0.3s ease-out;
-        display: none;
-    }
+        .pp-content { 
+            font-size: 1.05rem; 
+            line-height: 1.7; 
+            margin-top: 0.5rem; 
+        }
 
-    .keyboard-hint.show {
-        display: block;
-    }
+        .source-chip {
+            display: inline-block;
+            background: var(--primary-brown);
+            color: var(--light-cream);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+            font-family: 'Crimson Text', serif;
+            letter-spacing: 0.5px;
+        }
 
-    @media (max-width: 768px) {
+        .source-chip:hover { 
+            background: var(--dark-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(107, 68, 35, 0.3);
+        }
+
+        .event-display {
+            background: var(--soft-beige);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .event-display h3 {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.5rem;
+            color: var(--primary-brown);
+            font-family: 'Crimson Text', serif;
+        }
+
+        #aspect-example {
+            background: var(--light-cream);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        #aspect-example strong {
+            color: var(--primary-brown);
+            display: block;
+            margin-bottom: 0.75rem;
+            font-family: 'Crimson Text', serif;
+        }
+
+        #aspect-examples-list {
+            margin: 0.5rem 0 0 0;
+            padding-left: 1.5rem;
+        }
+
+        #aspect-examples-list li {
+            margin: 0.5rem 0;
+            color: var(--text-dark);
+        }
+
+        .hidden { 
+            display: none; 
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--soft-beige);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 101;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.5s ease;
+        }
+
+        /* Print Override */
+        @media print {
+            body { 
+                background: white; 
+                color: black; 
+            }
+            header, .container > .card, .controls, .source-chip, 
+            .validation-box, .strength-container, .source-verification, 
+            .research-warning, .research-tip { 
+                display: none !important;
+            }
+            #phase-4 { 
+                display: block !important; 
+                box-shadow: none; 
+                border: 1px solid #000; 
+                padding: 1rem; 
+            }
+            #passport-view { 
+                border: none;
+                padding: 0; 
+            }
+            .pp-header {
+                border-bottom: 2px solid #000;
+            }
+            .pp-section {
+                page-break-inside: avoid;
+            }
+            .pp-label {
+                color: #000;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .card {
+                padding: 2rem 1.5rem;
+            }
+
+            .header-controls {
+                position: static;
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .validation-box {
+                padding: 1rem;
+            }
+
+            .validation-question textarea {
+                min-height: 60px;
+                font-size: 0.95rem;
+            }
+
+            .source-chip {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.9rem;
+            }
+
+            .pp-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .controls button {
+                width: 100%;
+            }
+
+            .progress-fill div {
+                display: none;
+            }
+        }
+
         .keyboard-hint {
-            display: none !important;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(107, 68, 35, 0.9);
+            color: var(--light-cream);
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            animation: fadeIn 0.3s ease-out;
+            display: none;
         }
-    }
-</style>
-```
 
+        .keyboard-hint.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .keyboard-hint {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -746,27 +755,26 @@
 
 <div class="container">
 
-```
 <div class="keyboard-hint" id="keyboard-hint">
-    💡 Tip: Press <kbd style="background: var(--gold); color: var(--dark-brown); padding: 2px 6px; border-radius: 3px; font-weight: 600;">Ctrl+S</kbd> to save progress
+     Tip: Press <kbd style="background: var(--gold); color: var(--dark-brown); padding: 2px 6px; border-radius: 3px; font-weight: 600;">Ctrl+S</kbd> to save progress
 </div>
 
 <div id="phase-1" class="card">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
         <h2 style="margin: 0; border: none; padding: 0;">Phase 1: Identify Your Landmark</h2>
         <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
-            Step 1 of 4
+            Step 1 of 4 • ~15 min
         </div>
     </div>
     <p style="margin-bottom: 1.5rem;">A <strong>landmark</strong> is "an event, discovery, or change marking an important stage or turning point." Your job is to identify a post-2006 moment that represents a genuine shift—not just something that happened, but something that <em>changed</em> how we think, act, or organize ourselves.</p>
 
     <div class="research-warning">
         <strong>WARNING! This Tool Requires Independent Thinking!</strong>
-        You must identify your own event. This tool will help you refine and develop your idea, but you need to arrive with a specific moment in mind. If you're stuck, use the brainstorming prompts and research links below.
+        You must identify your own event. This tool will help you refine and develop your idea, but you need to arrive with a specific moment in mind. (Translation: "Give me a topic" won't work here. You gotta do the hard part first!) If you're stuck, use the brainstorming prompts and research links below.
     </div>
 
     <div style="background: white; border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin-bottom: 1.5rem;">
-        <div class="label-neon" style="margin-bottom: 0.75rem;">🔍 Research Starting Points</div>
+        <div class="label-neon" style="margin-bottom: 0.75rem;">Research Starting Points</div>
         <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-dark);">Use these databases to explore events, verify dates, and check source availability before committing to your choice.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
             <a href="https://www.nytimes.com/" target="_blank" rel="noopener noreferrer" class="source-chip">The New York Times</a>
@@ -792,168 +800,235 @@
     </div>
 
     <details class="research-tip">
-        <summary>Need help brainstorming? Click here for event categories</summary>
+        <summary>Stuck? Click here for brainstorming help!</summary>
         <div class="tip-content">
-            <p><strong>Landmarks come in many forms. Consider these categories:</strong></p>
+            <p><strong>Think of landmarks like this:</strong> If you had to explain modern history to someone from the year 2000, what events would you HAVE to mention? That's a landmark!</p>
+            
+            <p style="margin-top: 1.5rem;"><strong>Landmarks come in different flavors:</strong></p>
             <div class="example-grid">
                 <div class="example-card">
-                    <strong>Court Cases</strong>
-                    Supreme Court decisions, international tribunals, precedent-setting verdicts
+                    <strong>[LAW] Court Cases</strong>
+                    Big decisions that change laws or set new rules
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: Brown v. Board of Education ended school segregation (1954)</div>
                 </div>
                 <div class="example-card">
-                    <strong>Protests & Movements</strong>
-                    Mass mobilizations, viral campaigns, sustained activism
+                    <strong>[ACTION] Protests & Movements</strong>
+                    When lots of people demand change together
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: Civil Rights March on Washington (1963)</div>
                 </div>
                 <div class="example-card">
-                    <strong>Policy Changes</strong>
-                    Laws passed, regulations enacted, treaties signed
+                    <strong>[POLICY] Policy Changes</strong>
+                    New laws, rules, or agreements
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: 19th Amendment gives women the vote (1920)</div>
                 </div>
                 <div class="example-card">
-                    <strong>Attacks & Crises</strong>
-                    Acts of violence, natural disasters, public health emergencies
+                    <strong>[CRISIS] Attacks & Crises</strong>
+                    Shocking events that change everything
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: September 11 attacks (2001)</div>
                 </div>
                 <div class="example-card">
-                    <strong>Discoveries</strong>
-                    Scientific breakthroughs, technological releases, revelations
+                    <strong>[SCIENCE] Discoveries</strong>
+                    Scientific breakthroughs or new technology
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: First iPhone released (2007 — barely makes the cut!)</div>
                 </div>
                 <div class="example-card">
-                    <strong>Cultural Shifts</strong>
-                    Viral moments, boycotts, cancellations, platform changes
+                    <strong>[CULTURE] Cultural Shifts</strong>
+                    Viral moments that change how we talk/think
+                    <div style="margin-top: 0.5rem; font-style: italic; color: var(--text-light); font-size: 0.85rem;">Old example: Janet Jackson Super Bowl incident (2004)</div>
                 </div>
             </div>
-            <p style="margin-top: 1rem;"><strong>How to recognize a landmark:</strong></p>
-            <ul>
-                <li>Can you point to a "before" and "after"?</li>
-                <li>Did it spark ongoing debate or inspire similar events elsewhere?</li>
-                <li>Did it force institutions (governments, corporations, schools) to respond?</li>
-                <li>Is it still referenced today when discussing your umbrella topic?</li>
-            </ul>
+            
+            <div class="simple-box" style="margin-top: 1.5rem; background: #E8F5E9; border-color: #4CAF50;">
+                <h4 style="color: #2E7D32;">[CHECKLIST] The "Landmark Test" (4 Quick Questions):</h4>
+                <ol style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                    <li><strong>Before & After Test:</strong> Can you clearly describe what was different before vs. after? (If everything's basically the same, it's not a landmark!)</li>
+                    <li><strong>Ripple Effect Test:</strong> Did it cause other events or inspire copycat moments elsewhere?</li>
+                    <li><strong>Response Test:</strong> Did governments, companies, or schools have to DO something because of it?</li>
+                    <li><strong>Textbook Test:</strong> Is this event still talked about today when people discuss your topic?</li>
+                </ol>
+                <p style="margin: 1rem 0 0 0; font-style: italic; color: #2E7D32;">If you answered "yes" to 3 or more, you've probably got a landmark!</p>
+            </div>
         </div>
     </details>
 
     <div style="margin-bottom: 1.5rem; margin-top: 2rem;">
         <label for="event-name" class="label-neon">2. Name Your Event</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; margin-bottom: 8px; color: var(--text-light);">Be specific. Not "Ukraine war" but "Russia invades Ukraine." Not "police shooting" but "Death of George Floyd."</p>
-        <input type="text" id="event-name" placeholder="e.g., Supreme Court overturns Roe v. Wade in Dobbs decision" aria-required="true">
+        <p style="font-size: 0.9rem; margin-top: 5px; margin-bottom: 8px; color: var(--text-light);">Be specific! Include WHO did WHAT. (Vague = bad. Specific = good. Very specific = very good!)</p>
+        <input type="text" id="event-name" placeholder="e.g., Hurricane Katrina hits New Orleans, or Facebook launches to public" aria-required="true">
         
         <details style="margin-top: 0.75rem;">
-            <summary style="cursor: pointer; color: var(--primary-brown); font-size: 0.9rem; font-weight: 600;">Show examples of specific event names</summary>
+            <summary style="cursor: pointer; color: var(--primary-brown); font-size: 0.9rem; font-weight: 600;"> Show me good vs. bad event names</summary>
             <div style="margin-top: 0.75rem; padding: 0.75rem; background: var(--light-cream); border-radius: 4px; font-size: 0.85rem;">
-                <p style="margin: 0 0 0.5rem 0; font-weight: 600;">✓ GOOD (Specific):</p>
+                <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: #2E7D32;"> GOOD EXAMPLES (Be like these!):</p>
                 <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
-                    <li>"WHO declares COVID-19 a pandemic" (not "COVID-19 pandemic")</li>
-                    <li>"Harvey Weinstein convicted of rape" (not "#MeToo movement")</li>
-                    <li>"Russia invades Ukraine" (not "Ukraine war")</li>
-                    <li>"Supreme Court legalizes same-sex marriage in Obergefell decision" (not "Marriage equality achieved")</li>
+                    <li>"<strong>Hurricane Katrina devastates New Orleans</strong>" (specific place + what happened)</li>
+                    <li>"<strong>Stock market crashes on Black Tuesday</strong>" (specific day + what happened)</li>
+                    <li>"<strong>September 11 terrorist attacks</strong>" (specific event, everyone knows what this means)</li>
+                    <li>"<strong>Berlin Wall falls</strong>" (1989 — specific, dramatic, one clear moment)</li>
+                    <li>"<strong>Rosa Parks arrested for refusing to give up bus seat</strong>" (1955 — specific person, specific action)</li>
                 </ul>
-                <p style="margin: 1rem 0 0.5rem 0; font-weight: 600;">✗ TOO BROAD (Avoid):</p>
+                <p style="margin: 1rem 0 0.5rem 0; font-weight: 600; color: #D32F2F;"> TOO VAGUE (Don't be like these!):</p>
                 <ul style="margin: 0.5rem 0 0 1.5rem;">
-                    <li>"Syrian Civil War" → Instead: "Chemical weapons attack in Ghouta"</li>
-                    <li>"Black Lives Matter" → Instead: "Death of George Floyd"</li>
-                    <li>"Climate change activism" → Instead: "Paris Climate Agreement adopted"</li>
+                    <li>"The financial crisis"  → Instead: "Lehman Brothers files for bankruptcy" </li>
+                    <li>"Civil rights movement"  → Instead: "Selma to Montgomery marches" </li>
+                    <li>"Climate change stuff"  → Instead: "Paris Climate Agreement signed" </li>
+                    <li>"Social media happened"  → Instead: "Facebook opens to everyone with email" </li>
                 </ul>
+                <p style="margin-top: 1rem; padding: 0.75rem; background: white; border-left: 3px solid var(--gold); font-style: italic;">
+                    <strong>Pro tip:</strong> If you can add it to this sentence, it's specific enough: "On [DATE], [YOUR EVENT NAME] happened." If it sounds weird, you need more details!
+                </p>
             </div>
         </details>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="event-date" class="label-neon">3. Date (Month and Year)</label>
-        <input type="text" id="event-date" placeholder="e.g., June 2022" aria-required="true">
-        <small style="display: block; margin-top: 0.5rem; color: var(--text-light);">Must be post-2006</small>
+        <input type="text" id="event-date" placeholder="e.g., August 2005, or November 2008" aria-required="true">
+        <small style="display: block; margin-top: 0.5rem; color: var(--text-light);">Must be post-2006 (meaning 2007 or later — we need some distance from the event!)</small>
     </div>
 
     <div class="validation-box">
         <h4>Landmark Validation: Prove This is a Turning Point</h4>
-        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Before proceeding, demonstrate that you understand <em>why</em> this event matters. Generic or superficial answers will be flagged.</p>
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Before proceeding, demonstrate that you understand <em>why</em> this event matters. Generic or superficial answers will be flagged. (Think of this as convincing a skeptical friend why this event was a big deal.)</p>
 
         <div class="validation-question">
             <label>What changed before vs. after this event? (100+ characters)</label>
-            <textarea id="validation-change" oninput="updateCharCount('change')" placeholder="Be specific: What was legal/accepted before that wasn't after? What shift occurred in public opinion, policy, or practice?"></textarea>
+            <textarea id="validation-change" oninput="updateCharCount('change')" placeholder="What was different BEFORE this happened? What was different AFTER? Be specific! Use real examples, not 'things changed' or 'society was different.'"></textarea>
             <div class="char-counter" id="char-count-change">0 / 100 characters</div>
         </div>
 
         <div class="validation-question">
             <label>Who was most affected by this event? (75+ characters)</label>
-            <textarea id="validation-affected" oninput="updateCharCount('affected')" placeholder="Identify specific groups, demographics, or populations. Avoid vague terms like 'society' or 'everyone.'"></textarea>
+            <textarea id="validation-affected" oninput="updateCharCount('affected')" placeholder="Name actual groups of people! Not 'everyone' or 'society.' Think: women, veterans, teenagers, New Yorkers, Muslims, etc."></textarea>
             <div class="char-counter" id="char-count-affected">0 / 75 characters</div>
         </div>
 
         <div class="validation-question">
             <label>What ongoing debates or consequences trace back to this moment? (75+ characters)</label>
-            <textarea id="validation-legacy" oninput="updateCharCount('legacy')" placeholder="What current issues, policies, or movements stem from this event? What questions remain unresolved?"></textarea>
+            <textarea id="validation-legacy" oninput="updateCharCount('legacy')" placeholder="What do people STILL argue about because of this? What policies, movements, or questions remain active TODAY?"></textarea>
             <div class="char-counter" id="char-count-legacy">0 / 75 characters</div>
         </div>
     </div>
 
     <div class="validation-box" style="background: #FFF3E0; border-color: #F57F17;">
-        <h4 style="color: #E65100;">Source Availability Check</h4>
-        <p style="margin-bottom: 1rem; font-size: 0.95rem;">Before committing to this event, verify you can find adequate research material.</p>
+        <h4 style="color: #E65100;"> Source Availability Check (Don't Skip This!)</h4>
+        <p style="margin-bottom: 1rem; font-size: 0.95rem;">Before committing to this event, make sure you can actually find information about it. (It's no fun picking an event and then realizing there are no sources! Trust us on this.)</p>
         
         <div class="validation-question">
             <label>Search one academic database (JSTOR, Britannica, or library catalog). How many results did you find? (Minimum: 3)</label>
-            <input type="number" id="source-count" min="0" placeholder="Enter number">
+            <input type="number" id="source-count" min="0" placeholder="Enter number (be honest!)">
+            <small style="display: block; margin-top: 0.5rem; color: #E65100;">If you found fewer than 3 sources, your event might be too recent, too obscure, or too local. Consider choosing something else!</small>
         </div>
 
         <div class="validation-question">
             <label>List the title of ONE credible source you found</label>
-            <input type="text" id="source-example" placeholder='e.g., "The Supreme Court and Reproductive Rights" by Jane Doe, The Atlantic, 2022'>
+            <input type="text" id="source-example" placeholder='e.g., "The Great Recession: Causes and Consequences" - Journal of Economic History'>
+            <small style="display: block; margin-top: 0.5rem; color: #E65100;">Just proving you actually looked! </small>
         </div>
     </div>
 
     <details class="research-tip">
         <summary>How do I know if my event is too broad?</summary>
         <div class="tip-content">
-            <p><strong>Warning signs your event is too broad:</strong></p>
-            <ul>
-                <li>It spans multiple years (e.g., "Syrian Civil War" or "COVID-19 Pandemic")</li>
-                <li>It contains hundreds of distinct incidents (e.g., "Black Lives Matter Movement")</li>
-                <li>It's a trend rather than a moment (e.g., "Rise of Social Media")</li>
-            </ul>
-            <p><strong>How to narrow it:</strong></p>
-            <ul>
-                <li>From "COVID-19 Pandemic" → "WHO declares COVID-19 a pandemic (March 2020)"</li>
-                <li>From "Syrian Civil War" → "Chemical weapons attack in Ghouta (August 2013)"</li>
-                <li>From "Black Lives Matter" → "Death of George Floyd (May 2020)"</li>
-            </ul>
-            <p>A good landmark has a <strong>specific date</strong> and a <strong>single identifiable moment</strong> even if its effects ripple outward.</p>
+            <p><strong>Here's the simple test:</strong> Can you describe the entire event in one sentence without needing to say "and then... and then... and then..."? If you need lots of "and thens," it's probably too broad!</p>
+            
+            <div class="simple-box" style="background: #FFEBEE; border-color: #EF5350; margin-top: 1rem;">
+                <h4 style="color: #C62828;">[WARNING] RED FLAGS (Warning signs you're too broad):</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>It spans YEARS:</strong> "World War II" happened from 1939-1945. That's way too long! Pick ONE specific battle or moment instead.</li>
+                    <li><strong>It has hundreds of parts:</strong> "The Civil Rights Movement" included thousands of protests, marches, and court cases. Pick ONE specific event like "Rosa Parks arrested" or "March on Washington."</li>
+                    <li><strong>It's more of a TREND than a MOMENT:</strong> "Social media becoming popular" happened gradually over a decade. But "Facebook opens to the public" (Sept 2006) is ONE moment!</li>
+                    <li><strong>You can't pin down a DATE:</strong> If you're saying "around 2015-ish" or "sometime in the 2010s," it's probably not specific enough!</li>
+                </ul>
+            </div>
+
+            <div class="simple-box" style="background: #E8F5E9; border-color: #66BB6A; margin-top: 1rem;">
+                <h4 style="color: #2E7D32;">[FIX] HOW TO FIX IT (The "Zoom In" Method):</h4>
+                <p><strong>Too Broad:</strong> "The Great Depression"<br>
+                <strong>Zoomed In:</strong> "Stock Market Crash of October 29, 1929 (Black Tuesday)" </p>
+                
+                <p style="margin-top: 1rem;"><strong>Too Broad:</strong> "Hurricane Katrina and all its effects"<br>
+                <strong>Zoomed In:</strong> "Hurricane Katrina makes landfall in New Orleans (August 2005)" </p>
+                
+                <p style="margin-top: 1rem;"><strong>Too Broad:</strong> "The war in Afghanistan"<br>
+                <strong>Zoomed In:</strong> "Death of Osama bin Laden (May 2011)" </p>
+                
+                <p style="margin-top: 1rem;"><strong>Too Broad:</strong> "Facebook changed everything"<br>
+                <strong>Zoomed In:</strong> "Facebook opens to anyone with email address (Sept 2006)" </p>
+            </div>
+
+            <p style="margin-top: 1rem; font-style: italic;"><strong>Remember:</strong> A good landmark has a <strong>specific date</strong> and a <strong>single identifiable moment,</strong> even if its effects ripple outward for years. Think of it like taking a photo — you capture ONE moment in time, not the whole day!</p>
         </div>
     </details>
 
     <details class="research-tip" style="background: #FFF3E0; border-color: #F57F17;">
-        <summary style="color: #E65100;">⚠️ Common Pitfalls to Avoid</summary>
+        <summary style="color: #E65100;">️ Common Pitfalls (Learn from others' mistakes!)</summary>
         <div class="tip-content">
-            <p><strong>Students often struggle with these issues:</strong></p>
-            <ul>
-                <li><strong>Too recent:</strong> Events from the last 6 months lack scholarly analysis. Choose events at least 1 year old.</li>
-                <li><strong>Too personal/local:</strong> Your town's new ordinance likely lacks national significance unless it sparked broader debate.</li>
-                <li><strong>Generic wording:</strong> "The protests" or "the controversy" won't help you or your teacher identify your event. Use proper names.</li>
-                <li><strong>Confusing cause with effect:</strong> "#MeToo movement" is the effect; "Harvey Weinstein allegations go public" is the event that sparked it.</li>
-                <li><strong>Not actually post-2006:</strong> Double-check your dates. The assignment requires 2007 or later.</li>
-            </ul>
+            <p><strong>Students trip up on these ALL THE TIME. Don't be that person! </strong></p>
+            
+            <div style="margin-top: 1rem; padding: 1rem; background: white; border-left: 4px solid #EF5350; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #C62828;">[X] PITFALL #1: "Too Recent Syndrome"</h4>
+                <p style="margin: 0;">Picking something from last month because it's fresh in your mind.</p>
+                <p style="margin: 0.75rem 0 0 0; color: var(--text-dark);"><strong>Why it's a problem:</strong> Scholars haven't had time to analyze it yet! You'll find news articles but not deep analysis.</p>
+                <p style="margin: 0.5rem 0 0 0; color: #2E7D32;"><strong>The fix:</strong> Pick events at least 1-2 years old. Think "last year" not "last week."</p>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 1rem; background: white; border-left: 4px solid #FF9800; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #E65100;">[X] PITFALL #2: "Too Close to Home"</h4>
+                <p style="margin: 0;">"My town passed a new recycling ordinance!" Great for your town... but is it historically significant?</p>
+                <p style="margin: 0.75rem 0 0 0; color: var(--text-dark);"><strong>Why it's a problem:</strong> Local stuff rarely has enough sources or national/global impact.</p>
+                <p style="margin: 0.5rem 0 0 0; color: #2E7D32;"><strong>The fix:</strong> Unless your local event sparked a NATIONAL debate or copycat events elsewhere, go bigger. Think state/national/global.</p>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 1rem; background: white; border-left: 4px solid #9C27B0; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #6A1B9A;">[X] PITFALL #3: "Generic Word Soup"</h4>
+                <p style="margin: 0;">"The protests" or "the controversy" or "the scandal" — which one?!</p>
+                <p style="margin: 0.75rem 0 0 0; color: var(--text-dark);"><strong>Why it's a problem:</strong> Your teacher has no idea what you're talking about. Neither do you, actually.</p>
+                <p style="margin: 0.5rem 0 0 0; color: #2E7D32;"><strong>The fix:</strong> Use NAMES and SPECIFIC DETAILS. "Occupy Wall Street protests" not "the protests." "Watergate scandal" not "the scandal."</p>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 1rem; background: white; border-left: 4px solid #00BCD4; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #0097A7;">[X] PITFALL #4: "Cause vs. Effect Confusion"</h4>
+                <p style="margin: 0;">"#MeToo movement" — that's the EFFECT. What was the cause?</p>
+                <p style="margin: 0.75rem 0 0 0; color: var(--text-dark);"><strong>Why it's a problem:</strong> Movements don't just appear! They have specific trigger events.</p>
+                <p style="margin: 0.5rem 0 0 0; color: #2E7D32;"><strong>The fix:</strong> Find the SPARK. "#MeToo goes viral after Harvey Weinstein allegations" — THAT'S your event!</p>
+            </div>
+
+            <div style="margin-top: 1rem; padding: 1rem; background: white; border-left: 4px solid #F44336; border-radius: 4px;">
+                <h4 style="margin: 0 0 0.5rem 0; color: #C62828;">[X] PITFALL #5: "Time Travel Trouble"</h4>
+                <p style="margin: 0;">Picking something from 2005 because you forgot the "post-2006" rule.</p>
+                <p style="margin: 0.75rem 0 0 0; color: var(--text-dark);"><strong>Why it's a problem:</strong> You'll have to start over! (And your teacher will give you the Look™.)</p>
+                <p style="margin: 0.5rem 0 0 0; color: #2E7D32;"><strong>The fix:</strong> Double-check your date! Must be 2007 or later. When in doubt, Google "[event name] date" to be sure.</p>
+            </div>
+
+            <p style="margin-top: 1.5rem; padding: 1rem; background: #FFF9C4; border-radius: 4px; font-style: italic;">
+                <strong>[TIP] Bottom line:</strong> Pick something <strong>specific</strong> (not vague), <strong>significant</strong> (not just local news), <strong>researched</strong> (not brand new), and <strong>after 2006</strong> (check that date!). You got this!
+            </p>
         </div>
     </details>
 
     <div style="background: var(--light-cream); border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 2rem 0 1.5rem 0;">
         <div style="font-weight: 700; color: var(--primary-brown); margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">→ What's Next?</div>
         <p style="margin: 0; font-size: 0.9rem; color: var(--text-dark);">
-            Once your event is validated, <strong>Phase 2</strong> will help you select a research angle (Human, Reaction, or Legacy) and formulate a specific research question. Then <strong>Phase 3</strong> guides you through building a five-part significance paragraph with real-time feedback.
+            Once your event is validated, <strong>Phase 2</strong> will help you select a research angle (Human, Reaction, or Legacy) and formulate a specific research question. Then <strong>Phase 3</strong> guides you through building a five-part significance paragraph with real-time feedback. (The hard part is done — the rest is scaffolding!)
         </p>
     </div>
 
     <div style="background: #E8F5E9; border-left: 4px solid #4CAF50; padding: 1.25rem; border-radius: 4px; margin: 2rem 0 1.5rem 0;">
-        <div style="font-weight: 700; color: #2E7D32; margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">✓ Ready to Continue? Check:</div>
+        <div style="font-weight: 700; color: #2E7D32; margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;"> Ready to Continue? Quick Checklist:</div>
         <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.9rem; color: #757575; list-style: none;">
             <li id="check-topic">○ Umbrella topic selected</li>
-            <li id="check-event">○ Event name is specific (includes key details)</li>
+            <li id="check-event">○ Event name is specific (not vague!)</li>
             <li id="check-date">○ Date provided (month & year, post-2006)</li>
-            <li id="check-validation">○ All three validation questions answered (100+ and 75+ characters)</li>
+            <li id="check-validation">○ All three "why it matters" questions answered (100+ and 75+ characters)</li>
             <li id="check-sources">○ Found at least 3 academic sources</li>
             <li id="check-source-example">○ Listed one source title</li>
         </ul>
+        <p style="margin: 1rem 0 0 0; font-size: 0.85rem; color: #2E7D32; font-style: italic;">As you fill things out above, these checkboxes will turn green. It's oddly satisfying. </p>
     </div>
 
     <div class="controls">
-        <button id="validate-btn" onclick="validateAndProceed()">Validate & Continue</button>
+        <button id="validate-btn" onclick="validateAndProceed()">Validate & Continue →</button>
         <div id="validation-hint" style="text-align: center; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-light);"></div>
     </div>
 </div>
@@ -962,10 +1037,10 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
         <h2 style="margin: 0; border: none; padding: 0;">Phase 2: Find Your Angle</h2>
         <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
-            Step 2 of 4
+            Step 2 of 4 • ~10 min
         </div>
     </div>
-    <p style="margin-bottom: 2rem;">Now that you've identified a turning point, select <em>which aspect</em> of this turning point you want to investigate. You can't research everything—choose your lens.</p>
+    <p style="margin-bottom: 2rem;">Now that you've identified a turning point, select <em>which aspect</em> of this turning point you want to investigate. You can't research everything—choose your lens. (Think of it like choosing which character's perspective to follow in a movie!)</p>
 
     <div class="event-display">
         <div class="label-neon" style="color:var(--text-light);">Your Selected Event</div>
@@ -976,22 +1051,22 @@
 
     <div style="margin-bottom: 1.5rem;">
         <label for="student-name-input" class="label-neon">Investigator Name</label>
-        <input type="text" id="student-name-input" placeholder="your full name" aria-required="true">
+        <input type="text" id="student-name-input" placeholder="your full name (so we know whose brilliant work this is!)" aria-required="true">
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="landmarkType" class="label-neon">1. Categorize It</label>
         <select id="landmarkType" aria-required="true">
             <option value="">(choose one)</option>
-            <option value="Event">Event (a specific occurrence)</option>
-            <option value="Discovery">Discovery (new knowledge/technology)</option>
+            <option value="Event">Event (a specific occurrence — something happened on a particular day)</option>
+            <option value="Discovery">Discovery (new knowledge/technology was revealed)</option>
             <option value="Change">Change (shift in law/culture/policy)</option>
         </select>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="aspectType" class="label-neon">2. Select Your Lens (The Aspect)</label>
-        <p style="font-size: 0.95rem; margin-top: 8px; color: var(--text-light);">Which part of this story are you zooming in on?</p>
+        <p style="font-size: 0.95rem; margin-top: 8px; color: var(--text-light);">Which part of this story are you zooming in on? (Pick the angle that interests you most!)</p>
         <select id="aspectType" aria-required="true">
             <option value="">(choose one)</option>
             <option value="Human">The Human Aspect (Who initiated it? Who was affected? What motivated them?)</option>
@@ -1000,51 +1075,70 @@
         </select>
         
         <div style="background: var(--light-cream); border: 1px solid var(--border-color); padding: 1rem; border-radius: 4px; margin-top: 1rem; font-size: 0.85rem;">
-            <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--primary-brown);">💡 How to Choose:</p>
+            <p style="margin: 0 0 0.5rem 0; font-weight: 600; color: var(--primary-brown);"> Still confused? Here's the simple version:</p>
             <ul style="margin: 0; padding-left: 1.5rem;">
-                <li><strong>Human</strong> = Focus on individuals, motivations, biographies, decision-making</li>
-                <li><strong>Reaction</strong> = Focus on media coverage, public response, institutional statements, policy debates</li>
-                <li><strong>Legacy</strong> = Focus on long-term changes, precedents set, ongoing consequences, current relevance</li>
+                <li><strong>Human</strong> = The PEOPLE story (motivations, biographies, who made it happen, who suffered)</li>
+                <li><strong>Reaction</strong> = The RESPONSE story (media coverage, public outcry, what institutions did)</li>
+                <li><strong>Legacy</strong> = The AFTERMATH story (laws that changed, movements that formed, what's STILL happening today)</li>
             </ul>
-            <p style="margin: 0.75rem 0 0 0; font-style: italic; color: var(--text-light);">All three are valid! Choose based on what sources you've found and what interests you most.</p>
+            <p style="margin: 0.75rem 0 0 0; font-style: italic; color: var(--text-light);">All three are totally valid! Pick whatever angle has the best sources or interests you most. There's no "right" answer here.</p>
         </div>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="aspect-question" class="label-neon">3. The Big Question</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Frame your research as an inquiry, not a topic. Start with "How," "Why," or "What."</p>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Frame your research as an inquiry, not a topic. Start with "How," "Why," or "What." (You're investigating something, detective-style! )</p>
         <textarea id="aspect-question" placeholder="Example: Why did the public react so strongly to...? How did media coverage shape...? What legal precedents emerged from...?" aria-required="true"></textarea>
     </div>
 
     <details class="research-tip">
         <summary>What counts as a reliable source for this project?</summary>
         <div class="tip-content">
-            <p><strong>Prioritize these source types:</strong></p>
-            <ul>
-                <li><strong>Peer-reviewed scholarship</strong> – Academic journals (use the library!)</li>
-                <li><strong>Credentialed journalism</strong> – Established newspapers with editorial standards (NYT, WSJ, The Atlantic)</li>
-                <li><strong>Primary documents</strong> – Speeches, government reports, court decisions, eyewitness accounts</li>
-                <li><strong>Expert analysis</strong> – Think tanks, research organizations (Pew Research, Brookings)</li>
-            </ul>
-            <p><strong>Approach skeptically:</strong></p>
-            <ul>
-                <li>Social media posts (unless analyzing them as evidence)</li>
-                <li>Opinion blogs without clear authorship/credentials</li>
-                <li>Wikipedia (use only as a starting point to find actual sources)</li>
-            </ul>
+            <p><strong>Think of sources like a trust ladder — some are solid, others are shaky:</strong></p>
+            
+            <div class="simple-box" style="background: #E8F5E9; border-color: #4CAF50; margin-top: 1rem;">
+                <h4 style="color: #2E7D32;"> TOP TIER (Use these freely!):</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>Peer-reviewed scholarship</strong> – Academic journals from JSTOR, Google Scholar, or your library. These have been fact-checked by experts!</li>
+                    <li><strong>Credentialed journalism</strong> – Newspapers with professional standards: New York Times, Wall Street Journal, The Atlantic, BBC, NPR. (Not perfect, but trained journalists with editors.)</li>
+                    <li><strong>Primary documents</strong> – The original stuff! Speeches, government reports, court decisions, letters, interviews. These are GOLD for research.</li>
+                    <li><strong>Expert analysis</strong> – Think tanks and research orgs like Pew Research, Brookings Institution, or university research centers.</li>
+                </ul>
+            </div>
+
+            <div class="simple-box" style="background: #FFF9C4; border-color: #FBC02D; margin-top: 1rem;">
+                <h4 style="color: #F57F17;">️ MIDDLE TIER (Use carefully, check the author!):</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>Wikipedia</strong> – GREAT starting point to get the basics and find ACTUAL sources (check the footnotes!). But don't cite Wikipedia itself.</li>
+                    <li><strong>Government websites (.gov)</strong> – Usually reliable for facts and data, but remember all governments have their own spin.</li>
+                    <li><strong>Documentaries</strong> – Can be excellent if made by credible filmmakers. Check who made it and if they have an agenda.</li>
+                </ul>
+            </div>
+
+            <div class="simple-box" style="background: #FFEBEE; border-color: #EF5350; margin-top: 1rem;">
+                <h4 style="color: #C62828;"> AVOID (Don't even think about it!):</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>Random blogs</strong> – Unless the author is a verified expert with credentials, nope!</li>
+                    <li><strong>Social media posts</strong> – These are evidence OF something (like "people reacted this way"), but not evidence ABOUT something.</li>
+                    <li><strong>Websites with no clear author</strong> – Who wrote this? When? Why? If you can't answer these, skip it.</li>
+                    <li><strong>Sites trying to sell you something</strong> – Ads everywhere = biased content</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 1rem; font-style: italic;"><strong>When in doubt, ask yourself:</strong> "If I cited this source in my paper, would my teacher give me the Look™?" If yes, find a better source! </p>
         </div>
     </details>
 
     <div style="background: var(--light-cream); border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 2rem 0 1.5rem 0;">
         <div style="font-weight: 700; color: var(--primary-brown); margin-bottom: 0.75rem; font-family: 'Crimson Text', serif; font-size: 1.05rem;">→ What's Next?</div>
         <p style="margin: 0; font-size: 0.9rem; color: var(--text-dark);">
-            <strong>Phase 3</strong> provides five scaffolded text boxes to build your significance paragraph, with real-time feedback on specificity. You'll need concrete facts, dates, and proper nouns from your research.
+            <strong>Phase 3</strong> provides five scaffolded text boxes to build your significance paragraph, with real-time feedback on specificity. You'll need concrete facts, dates, and proper nouns from your research. (It's where the magic happens! )
         </p>
     </div>
 
     <div class="controls">
-        <button class="secondary" onclick="backToPhase1()">Back</button>
-        <button onclick="goToPhase3()">Next: The Deep Dive</button>
+        <button class="secondary" onclick="backToPhase1()">← Back</button>
+        <button onclick="goToPhase3()">Next: The Deep Dive →</button>
     </div>
 </div>
 
@@ -1052,13 +1146,13 @@
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
         <h2 style="margin: 0; border: none; padding: 0;">Phase 3: The Deep Dive</h2>
         <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
-            Step 3 of 4 •
+            Step 3 of 4 • ~30 min
         </div>
     </div>
-    <p>Use your preliminary research to construct the <strong>Significance Paragraph</strong> required for your proposal. Each box builds one part of your argument. Use specific nouns, dates, and factual claims.</p>
+    <p>Use your preliminary research to construct the <strong>Significance Paragraph</strong> required for your proposal. Each box builds one part of your argument. Use specific nouns, dates, and factual claims. (This is where you show off your research skills! )</p>
 
     <div style="background: white; border: 2px solid var(--gold); border-radius: 6px; padding: 1.25rem; margin: 1.5rem 0;">
-        <div class="label-neon" style="margin-bottom: 0.75rem;">📚 Find Your Sources Here</div>
+        <div class="label-neon" style="margin-bottom: 0.75rem;"> Find Your Sources Here</div>
         <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-dark);">Use these databases to locate credible sources. You'll need specific facts, dates, and quotations for your paragraph.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
             <a href="https://www.jstor.org/" target="_blank" rel="noopener noreferrer" class="source-chip">JSTOR</a>
@@ -1071,34 +1165,34 @@
     </div>
 
     <div class="research-warning">
-        <strong>Show Academic Integrity!</strong>
-        These boxes scaffold your thinking, but the content must come from research. Do not fabricate details. If you don't know something, find it, then write it down.
+        <strong> Show Academic Integrity!</strong>
+        These boxes scaffold your thinking, but the content must come from research. Do not fabricate details. If you don't know something, find it, then write it down. (Your teacher can tell when you're making stuff up. Always. Every time. )
     </div>
 
     <div class="source-verification">
-        <strong>Prove You've Started Research</strong>
-        <p style="margin-bottom: 0.75rem;">Before drafting, cite ONE source you've already consulted. This validates preliminary research.</p>
+        <strong>Prove You've Started Research (Show your work!)</strong>
+        <p style="margin-bottom: 0.75rem;">Before drafting, cite ONE source you've already consulted. This validates preliminary research. (Think of this as your "I actually did research" badge!)</p>
         <input type="text" id="source-proof" placeholder="Article title, author, publication, or URL" aria-required="true">
-        <small style="display: block; margin-top: 0.5rem; color: #1565C0;">Example: "Smith, John. 'The Impact of Dobbs.' New York Times, 2022."</small>
+        <small style="display: block; margin-top: 0.5rem; color: #1565C0;">Example: "Smith, John. 'Why Pearl Harbor Mattered.' History Today, 2002." or just paste a URL!</small>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="sent-1" class="label-neon">1. The Hook (Who, What, Where, When?)</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Establish the basic facts: dates, locations, key players, immediate circumstances.</p>
-        <textarea id="sent-1" placeholder="Example: On June 26, 2015, the U.S. Supreme Court ruled 5-4 in Obergefell v. Hodges that state bans on same-sex marriage were unconstitutional..." aria-required="true" oninput="updateStrength(1)"></textarea>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Establish the basic facts: dates, locations, key players, immediate circumstances. (Pretend you're explaining this to someone who's never heard of it before!)</p>
+        <textarea id="sent-1" placeholder="Example: On December 7, 1941, Japanese forces launched a surprise attack on Pearl Harbor, Hawaii, killing over 2,400 Americans and destroying eight battleships..." aria-required="true" oninput="updateStrength(1)"></textarea>
         <div class="strength-container">
             <div class="strength-ring" id="strength-1">?</div>
             <div class="strength-feedback" id="feedback-1">
                 <strong>Waiting for content...</strong>
-                Start typing to see real-time feedback on specificity.
+                Start typing to see real-time feedback on specificity. (The rings will change colors — it's actually pretty cool! →→)
             </div>
         </div>
     </div>
 
     <div style="margin-bottom: 1.5rem;">
         <label for="sent-2" class="label-neon">2. The Context (What was happening before?)</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What was the status quo? What conditions made this event possible or necessary?</p>
-        <textarea id="sent-2" placeholder="Example: Prior to this ruling, marriage equality was a state-by-state patchwork, with 37 states recognizing same-sex unions while 13 maintained bans..." oninput="updateStrength(2)"></textarea>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What was the status quo? What conditions made this event possible or necessary? (Set the scene! What was "normal" before this happened?)</p>
+        <textarea id="sent-2" placeholder="Example: Prior to Pearl Harbor, America maintained neutrality in World War II despite rising tensions with Japan over territorial expansion in Asia and U.S. economic sanctions..." oninput="updateStrength(2)"></textarea>
         <div class="strength-container">
             <div class="strength-ring" id="strength-2">?</div>
             <div class="strength-feedback" id="feedback-2">
@@ -1109,8 +1203,8 @@
 
     <div style="margin-bottom: 1.5rem;">
         <label for="sent-3" class="label-neon">3. The Turning Point (Why is this a landmark?)</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What changed? What made this moment different from everything before it?</p>
-        <textarea id="sent-3" placeholder="Example: This was a landmark because it established a federal constitutional right to marriage, ending decades of legal discrimination and marking the culmination of the LGBTQ+ civil rights movement..." aria-required="true" oninput="updateStrength(3)"></textarea>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What changed? What made this moment different from everything before it? (This is the "and that's why it mattered!" part!)</p>
+        <textarea id="sent-3" placeholder="Example: Pearl Harbor was a landmark because it immediately ended American isolationism, causing the U.S. to declare war on Japan the next day and fundamentally shifting America's role in global affairs from observer to active combatant..." aria-required="true" oninput="updateStrength(3)"></textarea>
         <div class="strength-container">
             <div class="strength-ring" id="strength-3">?</div>
             <div class="strength-feedback" id="feedback-3">
@@ -1121,8 +1215,8 @@
 
     <div style="margin-bottom: 1.5rem;">
         <label for="sent-4" class="label-neon">4. The Connection (Tie it to your umbrella topic)</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Explicitly link this event to the broader theme you're exploring.</p>
-        <textarea id="sent-4" placeholder="Example: This connects to gender roles and equality because it challenged traditional definitions of marriage and family structure, forcing a national reckoning with evolving norms around gender and partnership..." oninput="updateStrength(4)"></textarea>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Explicitly link this event to the broader theme you're exploring. (Draw a line from YOUR event to the BIG PICTURE theme!)</p>
+        <textarea id="sent-4" placeholder="Example: This connects to Violence as Power because it demonstrated how a single military strike could force policy changes, showing how violence became a tool for reshaping international relationships and alliances..." oninput="updateStrength(4)"></textarea>
         <div class="strength-container">
             <div class="strength-ring" id="strength-4">?</div>
             <div class="strength-feedback" id="feedback-4">
@@ -1133,8 +1227,8 @@
 
     <div style="margin-bottom: 1.5rem;">
         <label for="sent-5" class="label-neon">5. The Legacy (How does it affect us now?)</label>
-        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What are the ongoing consequences? What debates or changes continue today?</p>
-        <textarea id="sent-5" placeholder="Example: Ultimately, the legacy of this decision extends beyond marriage itself, influencing workplace protections, adoption rights, and ongoing debates about religious liberty and LGBTQ+ rights..." oninput="updateStrength(5)"></textarea>
+        <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">What are the ongoing consequences? What debates or changes continue today? (Fast-forward to NOW — what's still happening because of this event?)</p>
+        <textarea id="sent-5" placeholder="Example: Ultimately, Pearl Harbor's legacy extends to modern debates about military preparedness, the ethics of surprise attacks, and how December 7th became a lasting symbol of resilience, memorialized annually as 'a date which will live in infamy'..." oninput="updateStrength(5)"></textarea>
         <div class="strength-container">
             <div class="strength-ring" id="strength-5">?</div>
             <div class="strength-feedback" id="feedback-5">
@@ -1146,31 +1240,47 @@
     <details class="research-tip">
         <summary>How do I know if my paragraph is strong enough?</summary>
         <div class="tip-content">
-            <p><strong>Check for these elements:</strong></p>
-            <ul>
-                <li><strong>Specificity:</strong> Does every sentence contain proper nouns, dates, or concrete details?</li>
-                <li><strong>Causation:</strong> Do you explain <em>why</em> things happened, not just <em>what</em> happened?</li>
-                <li><strong>Context:</strong> Can a reader unfamiliar with this event understand its significance?</li>
-                <li><strong>Argument:</strong> Are you making a claim about significance or just summarizing?</li>
-            </ul>
-            <p><strong>Things to avoid:</strong> Vague language ("many people," "society," "things changed"), missing dates, no source-based evidence.</p>
+            <p><strong>Run the "Would My Teacher Buy It?" test:</strong></p>
+            <div class="simple-box" style="background: #E8F5E9; border-color: #4CAF50;">
+                <h4 style="color: #2E7D32;"> Signs Your Paragraph is STRONG:</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>Specificity:</strong> Every sentence has proper nouns (names of people/places), dates, or concrete details. You're saying "President Roosevelt" not "the leader."</li>
+                    <li><strong>Causation:</strong> You explain <em>why</em> things happened, not just <em>what</em> happened. "Because..." appears multiple times!</li>
+                    <li><strong>Context:</strong> Someone who's never heard of your event could read this and understand why it matters.</li>
+                    <li><strong>Argument:</strong> You're making a CLAIM about significance, not just summarizing Wikipedia.</li>
+                    <li><strong>Evidence:</strong> Facts, numbers, dates, and specific examples back up your claims.</li>
+                </ul>
+            </div>
+
+            <div class="simple-box" style="background: #FFEBEE; border-color: #EF5350; margin-top: 1rem;">
+                <h4 style="color: #C62828;"> Signs Your Paragraph is WEAK:</h4>
+                <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li><strong>Vague language:</strong> "Many people," "society," "things changed," "it was important." (These phrases are BANNED! Be specific!)</li>
+                    <li><strong>Missing dates:</strong> If you're not mentioning specific years or dates, you're probably being too vague.</li>
+                    <li><strong>No source-based evidence:</strong> Everything sounds like it came from your head instead of research.</li>
+                    <li><strong>Just summarizing:</strong> You're retelling the story but not analyzing WHY IT MATTERS.</li>
+                    <li><strong>Wikipedia syndrome:</strong> It reads like an encyclopedia entry — dry, factual, but no argument.</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 1rem; font-style: italic;"><strong>Pro tip:</strong> Read your paragraph out loud. Does it sound like something a historian would write, or does it sound like something you made up in 5 minutes? Be honest! </p>
         </div>
     </details>
 
     <div class="controls">
-        <button class="secondary" onclick="backToPhase2()">Back</button>
-        <button onclick="generatePassport()">Generate Proposal</button>
+        <button class="secondary" onclick="backToPhase2()">← Back</button>
+        <button onclick="generatePassport()">Generate Proposal →</button>
     </div>
 </div>
 
 <div id="phase-4" class="card hidden">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-        <h2 style="margin: 0; border: none; padding: 0;">Phase 4: Mission Complete</h2>
+        <h2 style="margin: 0; border: none; padding: 0;">Phase 4: Mission Complete!</h2>
         <div style="font-size: 0.85rem; color: var(--text-light); font-style: italic;">
             Step 4 of 4 • Review & Submit
         </div>
     </div>
-    <p style="margin-bottom: 2rem;">Your structured proposal is ready. Review it carefully, then print or save as a PDF.</p>
+    <p style="margin-bottom: 2rem;">Your structured proposal is ready! Review it carefully for typos or awkward phrasing, then print or save as a PDF. (You did it! Time to celebrate! )</p>
     
     <div id="passport-view">
         <div class="pp-header">
@@ -1224,13 +1334,13 @@
 
         <div class="pp-section">
             <div class="pp-label">Research Reflection</div>
-            <textarea id="reflection" style="width: 100%; min-height: 80px; margin-top: 0.5rem;" placeholder="What surprised you during your preliminary research? What question are you most curious about now? (Not graded, but required for submission)"></textarea>
+            <textarea id="reflection" style="width: 100%; min-height: 80px; margin-top: 0.5rem;" placeholder="What surprised you during your preliminary research? What question are you most curious about now? (Not graded, but required for submission — be honest!)"></textarea>
         </div>
 
         <div class="pp-section">
             <div class="pp-label">Sample MLA Citation Format</div>
             <div class="pp-content" style="font-family: 'Courier New', monospace; font-size: 0.9rem; background: var(--soft-beige); padding: 1rem; border-radius: 4px;">
-                Author. Title of Source. Title of Container, Other Contributors, Version, Number, Publisher, Publication Date, Location.
+                Author Last Name, First Name. "Title of Source." Title of Container, Other Contributors, Version, Number, Publisher, Publication Date, Location.
             </div>
         </div>
     </div>
@@ -1238,19 +1348,18 @@
     <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
         <div class="label-neon" style="margin-bottom: 1rem;">Recommended Starting Points for Academic Research</div>
         <p style="font-size: 0.95rem; margin-bottom: 1.25rem; color: var(--text-light);">
-            Use these curated sources to locate credible, peer-reviewed, and editorial-standard research on your event. Remember to evaluate each source critically and cite properly.
+            Use these curated sources to locate credible, peer-reviewed, and editorial-standard research on your event. Remember to evaluate each source critically and cite properly. (Your teacher will be impressed! )
         </p>
         <div id="link-container"></div>
     </div>
 
     <div class="controls">
-        <button onclick="window.print()">Print / Save as PDF</button>
-        <button class="secondary" onclick="exportToNoodleTools()">Export to NoodleTools</button>
-        <button class="secondary" onclick="copyToClipboard()">Copy Paragraph</button>
-        <button class="secondary" onclick="resetTool()">Start Over</button>
+        <button onclick="window.print()">[PRINT] Print / Save as PDF</button>
+        <button class="secondary" onclick="exportToNoodleTools()">[EXPORT] Export to NoodleTools</button>
+        <button class="secondary" onclick="copyToClipboard()">[COPY] Copy Paragraph</button>
+        <button class="secondary" onclick="resetTool()">[RESET] Start Over</button>
     </div>
 </div>
-```
 
 </div>
 
@@ -1322,11 +1431,11 @@
         for (const [id, complete] of Object.entries(checks)) {
             const element = document.getElementById(id);
             if (element) {
-                const originalText = element.textContent.replace('✓ ', '').replace('○ ', '');
+                const originalText = element.textContent.replace(' ', '').replace('○ ', '');
                 if (complete) {
                     element.style.color = '#2E7D32';
                     element.style.fontWeight = '600';
-                    element.textContent = '✓ ' + originalText;
+                    element.textContent = ' ' + originalText;
                 } else {
                     element.style.color = '#757575';
                     element.style.fontWeight = '400';
@@ -1340,7 +1449,7 @@
         const hint = document.getElementById('validation-hint');
         if (allComplete) {
             btn.style.background = '#4CAF50';
-            hint.textContent = '✓ All requirements met! Ready to continue.';
+            hint.textContent = ' All requirements met! Ready to continue.';
             hint.style.color = '#2E7D32';
         } else {
             btn.style.background = '';
@@ -1365,36 +1474,36 @@
         }
 
         if (!eventName || eventName.length < 10) {
-            errors.push('• Event name must be at least 10 characters and specific\n  Example: "Supreme Court overturns Roe v. Wade in Dobbs decision"');
+            errors.push('• Event name must be at least 10 characters and specific\n  Example: "Hurricane Katrina devastates New Orleans" or "Berlin Wall falls"');
         }
 
         if (!eventDate || eventDate.length < 4) {
-            errors.push('• Provide a date with month and year\n  Example: "June 2022"');
+            errors.push('• Provide a date with month and year\n  Example: "August 2005" or "November 1989"');
         } else {
             const yearMatch = eventDate.match(/\b(20\d{2})\b/);
             if (!yearMatch || parseInt(yearMatch[1]) < 2007) {
-                errors.push('• Event must be post-2006 (2007 or later)\n  Check your date format includes the year');
+                errors.push('• Event must be post-2006 (2007 or later)\n  Double-check your date includes the year!');
             }
         }
 
         if (change.length < 100) {
-            errors.push(`• "What changed" needs ${100 - change.length} more characters\n  Be specific about before/after differences`);
+            errors.push(`• "What changed" needs ${100 - change.length} more characters\n  Describe specific before/after differences (not "things changed"!)`);
         }
 
         if (affected.length < 75) {
-            errors.push(`• "Who was affected" needs ${75 - affected.length} more characters\n  Name specific groups, not "everyone" or "society"`);
+            errors.push(`• "Who was affected" needs ${75 - affected.length} more characters\n  Name actual groups of people, not "everyone" or "society"`);
         }
 
         if (legacy.length < 75) {
-            errors.push(`• "Ongoing debates" needs ${75 - legacy.length} more characters\n  What current issues stem from this event?`);
+            errors.push(`• "Ongoing debates" needs ${75 - legacy.length} more characters\n  What issues remain active TODAY because of this event?`);
         }
 
         if (sourceCount < 3) {
-            errors.push('• You need at least 3 academic sources\n  Search JSTOR, Britannica, or your library catalog\n  If you cannot find 3 sources, your event may be too recent/obscure');
+            errors.push('• You need at least 3 academic sources\n  Search JSTOR, Britannica, or your library catalog\n  If you genuinely can\'t find 3 sources, your event might be too recent or too local!');
         }
 
         if (!sourceExample || sourceExample.length < 15) {
-            errors.push('• Provide the title of one credible source you found\n  Example: "The Impact of Social Media" by Jane Smith, Journal of Politics');
+            errors.push('• Provide the title of one credible source you found\n  Just proving you actually looked! \n  Example: "The Great Depression" - Encyclopedia Britannica');
         }
 
         if (errors.length > 0) {
@@ -1402,20 +1511,18 @@
             return;
         }
 
-        // Vague language check
         const allValidationText = (change + ' ' + affected + ' ' + legacy).toLowerCase();
         const foundVague = vagueTerms.filter(term => allValidationText.includes(term));
         
         if (foundVague.length > 0) {
             const proceed = confirm(
-                `Your responses contain vague language:\n\n"${foundVague.slice(0,2).join('", "')}"\n\n` +
+                `️ Your responses contain vague language:\n\n"${foundVague.slice(0,2).join('", "')}"\n\n` +
                 `Replace with specific groups, institutions, or concrete changes.\n\n` +
-                `Proceed anyway? (Not recommended)`
+                `Proceed anyway? (Not recommended — specificity matters!)`
             );
             if (!proceed) return;
         }
 
-        // Create event object and proceed
         currentEvent = {
             event: eventName,
             date: eventDate,
@@ -1454,18 +1561,19 @@
         const q = document.getElementById('aspect-question').value.trim();
 
         if (!name || !lType || !aType || q.length < 10) {
-            alert("Please complete all required fields before proceeding.\n\n" +
-                  "• Investigator name\n" +
-                  "• Event categorization\n" +
-                  "• Research lens/aspect\n" +
-                  "• Research question (at least 10 characters)");
+            alert("Please complete all required fields before proceeding:\n\n" +
+                  "• Your name (so we know whose brilliant work this is!)\n" +
+                  "• Event categorization (Event, Discovery, or Change)\n" +
+                  "• Research lens/aspect (Human, Reaction, or Legacy)\n" +
+                  "• Research question (at least 10 characters — make it good!)");
             return;
         }
 
         if (!q.match(/^(how|why|what|when|where|who|which|to what extent)/i)) {
             const proceed = confirm(
-                "Research questions typically begin with inquiry words like 'How,' 'Why,' or 'What.'\n\n" +
-                "Your question doesn't follow this pattern. Are you sure you want to proceed?"
+                " Research questions typically begin with inquiry words like 'How,' 'Why,' or 'What.'\n\n" +
+                "Your question doesn't follow this pattern. Are you sure you want to proceed?\n\n" +
+                "(You can always come back and revise it!)"
             );
             if (!proceed) return;
         }
@@ -1485,7 +1593,7 @@
 
     function analyzeStrength(text) {
         if (text.trim().length < 20) {
-            return { level: 'weak', message: 'Too short - add more detail' };
+            return { level: 'weak', message: 'Too short - add more detail!' };
         }
 
         const properNouns = (text.match(/[A-Z][a-z]+(?:\s[A-Z][a-z]+)*/g) || []).length;
@@ -1494,18 +1602,18 @@
         const numbers = (text.match(/\b\d+\b/g) || []).length;
 
         if (properNouns >= 3 && dates >= 1 && vague.length === 0) {
-            return { level: 'strong', message: `Strong specificity! ${properNouns} proper nouns, ${dates} dates.` };
+            return { level: 'strong', message: `Nice! ${properNouns} proper nouns, ${dates} dates. Looking good! ` };
         }
         
         if (properNouns >= 2 && dates >= 1 && vague.length <= 1) {
-            return { level: 'moderate', message: vague.length ? `Good, but avoid: "${vague[0]}"` : 'Add more concrete details' };
+            return { level: 'moderate', message: vague.length ? `Pretty good, but avoid: "${vague[0]}"` : 'Add more concrete details!' };
         }
         
         if (vague.length > 0) {
-            return { level: 'weak', message: `Too vague - found: "${vague.slice(0, 2).join('", "')}"` };
+            return { level: 'weak', message: `Too vague! Found: "${vague.slice(0, 2).join('", "')}" Be specific! ` };
         }
         
-        return { level: 'weak', message: 'Needs proper nouns and dates' };
+        return { level: 'weak', message: 'Needs proper nouns and dates (be specific!)' };
     }
 
     function updateStrength(boxNumber) {
@@ -1517,7 +1625,7 @@
         const result = analyzeStrength(text);
         
         ring.className = 'strength-ring ' + result.level;
-        ring.textContent = result.level === 'strong' ? '✓' : result.level === 'moderate' ? '~' : '!';
+        ring.textContent = result.level === 'strong' ? '' : result.level === 'moderate' ? '~' : '!';
         
         feedback.innerHTML = `<strong>${result.level.charAt(0).toUpperCase() + result.level.slice(1)}</strong>${result.message}`;
         
@@ -1530,18 +1638,18 @@
         const sourceProof = document.getElementById('source-proof').value.trim();
         
         if (!sourceProof || sourceProof.length < 10) {
-            alert("You must cite at least ONE source you've consulted before generating your proposal.\n\n" +
-                  "This validates that you've started preliminary research.");
+            alert(" You must cite at least ONE source you've consulted!\n\n" +
+                  "This shows you've started preliminary research. (We know you did research — just write it down!)");
             document.getElementById('source-proof').focus();
             return;
         }
         
         if (s1.length < 20 || s3.length < 20) {
-            alert("Your significance paragraph requires substantive content.\n\n" +
+            alert("️ Your significance paragraph needs more substance!\n\n" +
                   "At minimum, you must complete:\n" +
                   "• Box 1 (The Hook) - at least 20 characters\n" +
                   "• Box 3 (The Turning Point) - at least 20 characters\n\n" +
-                  "These are the core components of your argument.");
+                  "These are the core of your argument. You can do it! ");
             return;
         }
 
@@ -1556,13 +1664,13 @@
         
         if (foundVague.length > 0) {
             const proceed = confirm(
-                `Your paragraph contains vague language that weakens academic writing:\n\n` +
+                `️ Your paragraph contains vague language:\n\n` +
                 `Found: "${foundVague.slice(0,3).join('", "')}"\n\n` +
                 `Consider replacing with:\n` +
                 `• Specific groups/demographics instead of "many people"\n` +
                 `• Particular institutions/laws instead of "society"\n` +
                 `• Concrete changes with evidence instead of "things changed"\n\n` +
-                `Proceed anyway?`
+                `Proceed anyway? (Academic writing thrives on specificity!)`
             );
             if (!proceed) return;
         }
@@ -1582,7 +1690,6 @@
         document.getElementById('pp-path').innerText = document.getElementById('aspectType').value;
         document.getElementById('pp-source').innerText = sourceProof;
 
-        // Add justification summary
         const justification = `Change: ${currentEvent.validation.change} // Affected: ${currentEvent.validation.affected} // Legacy: ${currentEvent.validation.legacy}`;
         document.getElementById('pp-justification').innerText = justification;
 
@@ -1628,9 +1735,9 @@
     function copyToClipboard() {
         const paragraph = document.getElementById('pp-paragraph').innerText;
         navigator.clipboard.writeText(paragraph).then(() => {
-            alert('Paragraph copied to clipboard!');
+            alert('[SUCCESS] Paragraph copied to clipboard! Now paste it wherever you need it. ');
         }).catch(() => {
-            alert('Failed to copy. Please manually select and copy the text.');
+            alert('[ERROR] Failed to copy automatically. Please manually select and copy the text. (Ctrl+C or Cmd+C)');
         });
     }
 
@@ -1666,17 +1773,16 @@
         document.body.removeChild(a);
         window.URL.revokeObjectURL(url);
         
-        alert('CSV file downloaded!\n\nImport into NoodleTools:\n1. Log into NoodleTools\n2. Open your project\n3. Click "Import" in Sources\n4. Select "Import from file"\n5. Upload this CSV\n6. Review and edit as needed');
+        alert('[SUCCESS] CSV file downloaded!\n\nHow to import into NoodleTools:\n1. Log into NoodleTools\n2. Open your project\n3. Click "Import" in Sources\n4. Select "Import from file"\n5. Upload this CSV\n6. Review and edit as needed\n\n(You got this! )');
     }
 
     function resetTool() {
-        if (confirm('Are you sure you want to start over? All progress will be lost.')) {
+        if (confirm('️ Are you SURE you want to start over?\n\nAll your progress will be lost! (But hey, sometimes a fresh start is good! )')) {
             localStorage.removeItem('eventProposalProgress');
             location.reload();
         }
     }
 
-    // PROGRESS TRACKING
     function getCurrentPhase() {
         if (!document.getElementById('phase-1').classList.contains('hidden')) return 1;
         if (!document.getElementById('phase-2').classList.contains('hidden')) return 2;
@@ -1799,7 +1905,7 @@
         const saved = localStorage.getItem('eventProposalProgress');
         if (saved) {
             const progress = JSON.parse(saved);
-            if (confirm('You have saved progress from a previous session. Would you like to continue where you left off?')) {
+            if (confirm(' You have saved progress from a previous session!\n\nWould you like to continue where you left off? (If you click "Cancel," you\'ll start fresh.)')) {
                 restoreProgress(progress);
             } else {
                 localStorage.removeItem('eventProposalProgress');
@@ -1809,7 +1915,6 @@
         document.addEventListener('input', debouncedSave);
         document.addEventListener('change', debouncedSave);
 
-        // Add listeners for Phase 1 form fields to update checklist
         const phase1Fields = ['umbrella-topic', 'event-name', 'event-date', 
                               'validation-change', 'validation-affected', 'validation-legacy',
                               'source-count', 'source-example'];
@@ -1822,9 +1927,7 @@
             }
         });
 
-        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // Ctrl+S or Cmd+S to save
             if ((e.ctrlKey || e.metaKey) && e.key === 's') {
                 e.preventDefault();
                 saveProgress();
@@ -1832,7 +1935,6 @@
             }
         });
 
-        // Show keyboard hint after 5 seconds
         setTimeout(() => {
             const hint = document.getElementById('keyboard-hint');
             if (hint) {
@@ -1847,7 +1949,7 @@
     function showSavedNotification() {
         const hint = document.getElementById('keyboard-hint');
         const originalText = hint.innerHTML;
-        hint.innerHTML = '✓ Progress Saved!';
+        hint.innerHTML = ' Progress Saved!';
         hint.classList.add('show');
         setTimeout(() => {
             hint.innerHTML = originalText;
